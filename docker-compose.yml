@@ -1,0 +1,26 @@
+services:
+  php1:
+    build: .
+    ports:
+      - "3002:80"
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      - mysql1
+    restart: always
+
+  mysql1:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: root1234
+      MYSQL_DATABASE: rentroad
+      MYSQL_USER: rentroad
+      MYSQL_PASSWORD: 1234
+    ports:
+      - "3309:3306"
+    volumes:
+      - mysql_data1:/var/lib/mysql
+    restart: unless-stopped
+
+volumes:
+  mysql_data1:
