@@ -30,6 +30,7 @@ $app
     ->setDescription('Seed the database with initial data')
     ->setCode(function (InputInterface $input, OutputInterface $output) use ($entityManager) {
         $txt = '';
+        exec('./cli orm:schema-tool:drop -f', $txt);
         exec('./cli db:update', $txt);
 
         // Exec all the seeders under the 'App\Seeders' namespace
@@ -44,7 +45,9 @@ $app
                 }
             }
         }
+
         $output->writeln($txt);
+        $output->writeln('Database seeded successfully!');
     });
 
 $app
