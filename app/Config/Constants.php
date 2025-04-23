@@ -20,3 +20,15 @@ define('DB_PORT', $_ENV['DB_PORT'] ?? '');
  * Time Constants
  */
 const APP_TIMEZONE = 'America/New_York';
+
+/**
+ * ROLES
+ */
+define('ROL_ADMIN', 1);
+define('ROL_EMPLEADO', 2);
+define('ROL_CLIENTE', 3);   
+
+/**
+ * Configuracion de seccion
+ */
+define('SESSION_USER_KEY', 'rentroad_user');

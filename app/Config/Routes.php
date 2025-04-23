@@ -100,6 +100,17 @@ class Routes
         /* ------ FRONTEND AUTO ROUTES ------ */
         /* ---------------------------------- */
         Route::add('/(.*?)(?:/(.*?))?(?:/(.*?))?(?:/(.*?))?', $this->call());
+
+        $routes = [
+            'GET /login' => ['AuthController', 'login'],
+            'POST /login' => ['AuthController', 'login'],
+            'GET /logout' => ['AuthController', 'logout'],
+            
+            // Rutas protegidas
+            'GET /admin/dashboard' => ['AdminController', 'dashboard', [ROL_ADMIN]],
+            'GET /empleado/dashboard' => ['EmpleadoController', 'dashboard', [ROL_EMPLEADO]],
+            'GET /home' => ['HomeController', 'index', [ROL_ADMIN, ROL_EMPLEADO, ROL_CLIENTE]],
+        ];
     }
 
     /**
@@ -194,4 +205,5 @@ class Routes
     {
         return $_SERVER['REQUEST_METHOD'] === 'OPTIONS';
     }
+
 }
