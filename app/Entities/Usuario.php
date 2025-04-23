@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Traits\Entities\Shared;
 
 #[ORM\Entity]
+#[ORM\HasLifecycleCallbacks]
 #[ORM\Table(name: 'usuarios')]
 class Usuario
 {
@@ -47,4 +48,9 @@ class Usuario
 
     #[ORM\Column(type: 'date', nullable: true)]
     public ?\DateTime $fecha_nacimiento = null;
+
+    public function getNombreCompleto(): string
+    {
+        return $this->nombre . ' ' . $this->apellido;
+    }
 }

@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Traits\Entities\Shared;
 
 #[ORM\Entity]
+#[ORM\HasLifecycleCallbacks]
 #[ORM\Table(name: 'categorias_vehiculos')]
 class CategoriaVehiculo
 {

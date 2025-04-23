@@ -7,6 +7,7 @@ use App\Repositories\VehiclesRepo;
 use App\Traits\Entities\Shared;
 
 #[ORM\Entity(repositoryClass: VehiclesRepo::class)]
+#[ORM\HasLifecycleCallbacks]
 #[ORM\Table(name: 'vehiculos')]
 class Vehiculo
 {
