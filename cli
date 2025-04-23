@@ -1,19 +1,61 @@
+#!/usr/bin/env php
+
 <?php
 
 use Doctrine\ORM\Tools\Console\ConsoleRunner;
 use Doctrine\ORM\Tools\Console\EntityManagerProvider\SingleManagerProvider;
+use Dotenv\Dotenv;
+use Symfony\Component\Console\Application;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use App\Config\ORM;
 
 require 'vendor/autoload.php';
 
 // Load our environment variables from the .env file:
-(Dotenv\Dotenv::createImmutable(__DIR__))->load();
+Dotenv::createImmutable(__DIR__)->load();
 
 require_once 'app/Config/Constants.php';
 require 'app/Config/ORM.php';
 
-$ORM = new \App\Config\ORM();
+$ORM = new ORM();
 $entityManager = $ORM->getProvider();
 
-ConsoleRunner::run(
-    new SingleManagerProvider($entityManager)
-);
+$app = new Application('RentRoad CLI', 'v0.0.1');
+
+ConsoleRunner::addCommands($app, new SingleManagerProvider($entityManager));
+
+$app
+    ->register('db:seed')
+    ->setDescription('Seed the database with initial data')
+    ->setCode(function (InputInterface $input, OutputInterface $output) use ($entityManager) {
+        $txt = '';
+        exec('./cli db:update', $txt);
+
+        // Exec all the seeders under the 'App\Seeders' namespace
+        $seeders = glob('app/Seeders/*.php');
+
+        foreach ($seeders as $seeder) {
+            $className = 'App\\Seeders\\' . basename($seeder, '.php');
+            if (class_exists($className)) {
+                $seederInstance = new $className($entityManager);
+                if (method_exists($seederInstance, 'run')) {
+                    $seederInstance->run();
+                }
+            }
+        }
+        $output->writeln($txt);
+    });
+
+$app
+    ->register('db:update')
+    ->setDescription('Update the schema')
+    ->setCode(function (InputInterface $input, OutputInterface $output) {
+        $txt = '';
+        exec('./cli orm:clear-cache:metadata', $txt);
+        exec('./cli orm:generate-proxies', $txt);
+        exec('./cli orm:schema-tool:update -f', $txt);
+        $output->writeln($txt);
+    });
+
+$app->run();
