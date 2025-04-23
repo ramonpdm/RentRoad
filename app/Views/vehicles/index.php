@@ -19,6 +19,7 @@
 
 <div id="vehicles-section" class="site-section bg-light">
     <div class="container">
+
         <div class="row">
             <div class="col-md-12">
                 <div class="d-flex justify-content-between align-items-center">
@@ -33,7 +34,20 @@
         </div>
 
         <br>
-        <br>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="input-group mb-3">
+                    <input type="search" class="form-control" placeholder="Buscar vehículo..." id="searchVehicleInput">
+                    <div class="input-group-append">
+                        <button class="btn btn-secondary" type="button" id="searchVehicleButton">
+                            <i class="bi bi-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <br>
 
         <div id="vehicles-list" class="row">
@@ -48,9 +62,15 @@
 </div>
 
 <script type="application/javascript">
+    const filters = {
+        marca: null,
+        modelo: null,
+        ano: null
+    }
+
     document.addEventListener('DOMContentLoaded', async () => {
-        await renderVehicles();
         setStaticListeners();
+        await renderVehicles();
     })
 
     const getVehicles = async () => fetch('/api/v1/vehicles')
@@ -69,14 +89,18 @@
         const container = document.getElementById('vehicles-list');
         container.innerHTML = html;
 
+        filterVehicles();
         setDynamicListeners();
     }
 
     const renderVehicle = (vehicle) => {
         return `
         <div class="col-md-6 col-lg-4 mb-4">
-            <form id="vehicle-form-${vehicle.id}">
+            <form id="vehicle-form-${vehicle.id}" class="vehicle-form">
                 <input type="hidden" name="id" value="${vehicle.id}">
+                <input type="hidden" name="marca" value="${vehicle.marca}">
+                <input type="hidden" name="modelo" value="${vehicle.modelo}">
+                <input type="hidden" name="ano" value="${vehicle.ano}">
                 <div class="listing d-block align-items-stretch">
                     <div class="listing-img h-100 mr-4">
                         <img src="${vehicle.imagen_url}" alt="Image" class="img-fluid">
@@ -117,7 +141,87 @@
         `
     }
 
+    const filterVehicles = () => {
+        const vehicles = document.querySelectorAll('#vehicles-list .vehicle-form');
+        const search = filters.search || '';
+
+        vehicles.forEach(form => {
+            const vehicleText = form.innerText.toLowerCase();
+            const marca = form.querySelector('input[name="marca"]').value.toLowerCase();
+            const modelo = form.querySelector('input[name="modelo"]').value.toLowerCase();
+            const ano = form.querySelector('input[name="ano"]').value.toLowerCase();
+
+            if (
+                vehicleText.includes(search)
+                || marca.includes(search) || marca.includes(filters.marca)
+                || modelo.includes(search) || modelo.includes(filters.modelo)
+                || ano.includes(search) || ano.includes(filters.ano)
+            ) {
+                form.parentElement.style.display = 'block';
+            } else {
+                form.parentElement.style.display = 'none';
+            }
+        });
+
+        let html = '';
+
+        const visibleResults = Array.from(document.querySelectorAll('#vehicles-list .vehicle-form')).some(form => {
+            const parent = form.parentElement;
+            return parent.style.display !== 'none';
+        });
+
+        if (!visibleResults) {
+            if (filters.marca || filters.modelo || filters.ano) {
+                html = `
+                <div class="col d-flex justify-content-center">
+                    <b class="text-danger">No se encontraron vehículos que coincidan con los criterios de búsqueda.</b>
+                </div>
+                `;
+            } else {
+                html = `
+                <div class="col d-flex justify-content-center">
+                    <b class="text-danger">No hay vehículos disponibles.</b>
+                </div>`;
+            }
+
+            const container = document.getElementById('vehicles-list');
+            container.innerHTML = html;
+        }
+    }
+
     const setStaticListeners = () => {
+        const searchInput = document.getElementById('searchVehicleInput');
+        const urlParams = new URLSearchParams(window.location.search);
+        const search = urlParams.get('search');
+
+        if (search) {
+            searchInput.value = search;
+            filters.search = search;
+        } else {
+            const marca = urlParams.get('marca');
+            const modelo = urlParams.get('modelo');
+            const ano = urlParams.get('ano');
+
+            Object.assign(filters, {marca, modelo, ano});
+            if (marca) searchInput.value += marca + ' ';
+            if (modelo) searchInput.value += modelo + ' ';
+            if (ano) searchInput.value += ano;
+        }
+
+        searchInput.addEventListener('input', (event) => {
+            const value = event.target.value.toLowerCase().trim();
+            filters.search = value;
+            filterVehicles()
+
+            // Replace query parameters
+            const url = new URL(window.location.href);
+            url.searchParams.set('search', value);
+            url.searchParams.delete('marca');
+            url.searchParams.delete('modelo');
+            url.searchParams.delete('ano');
+            window.history.pushState({}, '', url);
+        });
+
         const createVehicleForm = document.getElementById('createVehicleForm');
         createVehicleForm.addEventListener('submit', async (event) => {
             event.preventDefault();

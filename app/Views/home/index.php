@@ -12,28 +12,27 @@
                             </div>
                         </div>
 
-                        <form class="trip-form">
+                        <form class="trip-form" method="get" action="/vehicles">
                             <div class="row align-items-center">
                                 <div class="mb-3 mb-md-0 col-md-3">
-                                    <select name="" id="" class="custom-select form-control">
-                                        <option value="">Mazda</option>
-                                        <option value="">Honda</option>
-                                        <option value="">Hyundai</option>
-                                        <option value="">Chevrolet</option>
-                                        <option value="">Ford</option>
+                                    <select name="marca" id="" class="custom-select form-control">
+                                        <option value="Mazda">Mazda</option>
+                                        <option value="Honda">Honda</option>
+                                        <option value="Hyundai">Hyundai</option>
+                                        <option value="Chevrolet">Chevrolet</option>
+                                        <option value="Ford">Ford</option>
                                     </select>
                                 </div>
                                 <div class="mb-3 mb-md-0 col-md-3">
                                     <div class="form-control-wrap">
-                                        <input type="text" id="cf-3" placeholder="Fecha recogida" class="form-control datepicker px-3">
-                                        <span class="icon icon-date_range"></span>
-
+                                        <input type="text" name="modelo" placeholder="Modelo" class="form-control px-3">
+                                        <span class="icon icon-car"></span>
                                     </div>
                                 </div>
                                 <div class="mb-3 mb-md-0 col-md-3">
                                     <div class="form-control-wrap">
-                                        <input type="text" id="cf-4" placeholder="Fecha devolución" class="form-control datepicker px-3">
-                                        <span class="icon icon-date_range"></span>
+                                        <input type="text" name="ano" placeholder="Año" class="form-control px-3">
+                                        <span class="icon icon-calendar"></span>
                                     </div>
                                 </div>
                                 <div class="mb-3 mb-md-0 col-md-3">
