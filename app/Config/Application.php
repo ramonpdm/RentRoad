@@ -17,6 +17,8 @@ class Application
         // Bootstrap the static files
         $this->bootstrap();
 
+        session_start();
+
         self::$orm = new ORM();
         $this->routes = new Routes($this->getOrm());
     }

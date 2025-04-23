@@ -9,12 +9,20 @@
                         <form action="/login" method="POST">
                             <div class="form-group">
                                 <label for="email">Correo Electrónico</label>
-                                <input type="email" id="email" name="email" class="form-control" placeholder="Ingresa tu correo" required>
+                                <input type="email" id="email" name="email" class="form-control" placeholder="Ingresa tu correo" value="<?= $_POST['email'] ?? '' ?>" required>
                             </div>
                             <div class="form-group">
                                 <label for="password">Contraseña</label>
                                 <input type="password" id="password" name="password" class="form-control" placeholder="Ingresa tu contraseña" required>
                             </div>
+                            <?php if (isset($message, $error)) : ?>
+                                <div class="form-group text-center">
+                                    <div class="alert <?= $error ? 'alert-danger' : 'alert-success' ?>"><?= $message ?></div>
+                                </div>
+                            <?php if ($error === false) : ?>
+                                <script> setTimeout(() => window.location.href = '/vehicles', 1000);</script>
+                            <?php endif ?>
+                            <?php endif ?>
                             <div class="form-group text-center">
                                 <button type="submit" class="btn btn-primary btn-block">Iniciar Sesión</button>
                             </div>

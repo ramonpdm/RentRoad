@@ -94,6 +94,8 @@ class Routes
         Route::add('/confirmation', $this->call(HomeController::class, 'confirmation'));
 
         Route::add('/login', $this->call(AuthController::class, 'login'));
+        Route::add('/logout', $this->call(AuthController::class, 'logout'));
+        Route::add('/login', $this->call(AuthController::class, 'login'), method: 'post');
         Route::add('/register', $this->call(AuthController::class, 'register'));
 
         /* ---------------------------------- */
@@ -105,7 +107,7 @@ class Routes
             'GET /login' => ['AuthController', 'login'],
             'POST /login' => ['AuthController', 'login'],
             'GET /logout' => ['AuthController', 'logout'],
-            
+
             // Rutas protegidas
             'GET /admin/dashboard' => ['AdminController', 'dashboard', [ROL_ADMIN]],
             'GET /empleado/dashboard' => ['EmpleadoController', 'dashboard', [ROL_EMPLEADO]],

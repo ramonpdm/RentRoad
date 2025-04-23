@@ -2,33 +2,47 @@
 
 namespace App\Controllers\Frontend;
 
+use Throwable;
+use App\Config\Auth;
+use App\Services\AuthService;
+
 class AuthController extends BaseController
 {
-    public function login() {
+    public function login(): string
+    {
+        if (Auth::isLogged())
+            return $this->redirect('/vehicles');
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $response = [
+                'error' => false,
+                'message' => 'Inicio de sesión exitoso! Redirigiendo...'
+            ];
+
             $email = $_POST['email'] ?? '';
             $password = $_POST['password'] ?? '';
-            
+
             try {
-                $usuario = $this->authService->authenticate($email, $password);
-                
-                $_SESSION['usuario'] = [
-                    'id' => $usuario->getId(),
-                    'email' => $usuario->getEmail(),
-                    'rol' => $usuario->getRol()->getId()
+                AuthService::login($email, $password);
+            } catch (Throwable $e) {
+                $response = [
+                    'error' => true,
+                    'message' => $e->getMessage()
                 ];
-                
-                $this->redirectBasedOnRole($usuario->getRol()->getId());
-                
-            } catch (Exception $e) {
-                $this->render('auth/login', ['error' => $e->getMessage()]);
             }
-        } else {
-            $this->render('auth/login');
         }
+
+        return $this->renderView('auth/login', data: $response ?? []);
     }
-    
-    private function redirectBasedOnRole($rolId) {
+
+    public function logout(): void
+    {
+        session_destroy();
+        header('Location: /login');
+    }
+
+    private function redirectBasedOnRole($rolId): void
+    {
         switch ($rolId) {
             case ROL_ADMIN:
                 header('Location: /admin/dashboard');
@@ -42,13 +56,6 @@ class AuthController extends BaseController
             default:
                 header('Location: /home');
         }
-        exit();
-    }
-    
-    public function logout() {
-        session_destroy();
-        header('Location: /login');
-        exit();
     }
 
     public function register(): string
