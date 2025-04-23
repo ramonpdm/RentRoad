@@ -50,3 +50,13 @@ ENVIRONMENT=development
 ```
 http://127.0.0.1:3002
 ```
+
+# Doctrine
+
+## Proxy Clases
+
+Utiliza el siguiente comando para borrar las clases proxy de Doctrine:
+
+```bash
+find /tmp -name "*.php*" -type f -delete
+```
