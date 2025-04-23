@@ -22,8 +22,6 @@ class Routes
 
     /**
      * Run the routes.
-     *
-     * @throws HttpException
      */
     public function run(string $url = '/'): void
     {
@@ -92,7 +90,6 @@ class Routes
         /* ---- FRONTEND SPECIFIC ROUTES ---- */
         /* ---------------------------------- */
         Route::add('/', $this->call(HomeController::class));
-        Route::add('/vehicles', $this->call(HomeController::class, 'vehicles'));
         Route::add('/rent', $this->call(HomeController::class, 'rent'));
         Route::add('/confirmation', $this->call(HomeController::class, 'confirmation'));
 
