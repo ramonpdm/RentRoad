@@ -33,12 +33,8 @@ class HttpException extends Exception
 
     /**
      * HttpException constructor.
-     *
-     * @param int        $httpCode
-     * @param ?string    $message
-     * @param ?Throwable $previous
      */
-    public function __construct(int $httpCode, string $message = null, Throwable $previous = null)
+    public function __construct(int $httpCode, ?string $message = null, ?Throwable $previous = null)
     {
         $this->code = $httpCode;
         parent::__construct($message ?? $this->getDefaultMessage($httpCode), $httpCode, $previous);
@@ -47,10 +43,6 @@ class HttpException extends Exception
     /**
      * Get the default message for
      * the given HTTP status code.
-     *
-     * @param int $httpCode
-     *
-     * @return string
      */
     protected function getDefaultMessage(int $httpCode): string
     {
@@ -59,8 +51,6 @@ class HttpException extends Exception
 
     /**
      * Get the HTTP status code.
-     *
-     * @return int
      */
     public function getHttpCode(): int
     {
