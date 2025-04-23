@@ -3,34 +3,35 @@
 namespace App\Entities;
 
 use Doctrine\ORM\Mapping as ORM;
+use App\Traits\Entities\Shared;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'pagos')]
 class Pago
 {
+    use Shared;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    private int $id;
+    public int $id;
 
     #[ORM\ManyToOne(targetEntity: Reserva::class)]
     #[ORM\JoinColumn(name: 'reserva_id', referencedColumnName: 'id', nullable: false)]
-    private Reserva $reserva;
+    public Reserva $reserva;
 
     #[ORM\Column(type: 'string', columnDefinition: "ENUM('Tarjeta Crédito', 'Tarjeta Débito', 'Efectivo', 'Transferencia')")]
-    private string $metodo_pago;
+    public string $metodo_pago;
 
     #[ORM\Column(type: 'decimal', precision: 10, scale: 2)]
-    private float $monto;
+    public float $monto;
 
     #[ORM\Column(type: 'datetime', options: ['default' => 'CURRENT_TIMESTAMP'])]
-    private \DateTime $fecha_pago;
+    public \DateTime $fecha_pago;
 
     #[ORM\Column(type: 'string', columnDefinition: "ENUM('Pendiente', 'Completado', 'Reembolsado', 'Fallido')", options: ['default' => 'Pendiente'])]
-    private string $estado = 'Pendiente';
+    public string $estado = 'Pendiente';
 
     #[ORM\Column(type: 'string', length: 100, nullable: true)]
-    private ?string $transaccion_id = null;
-
-    // Getters and setters...
+    public ?string $transaccion_id = null;
 }

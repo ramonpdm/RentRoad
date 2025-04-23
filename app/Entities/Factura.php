@@ -3,35 +3,38 @@
 namespace App\Entities;
 
 use Doctrine\ORM\Mapping as ORM;
+use App\Traits\Entities\Shared;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'facturas')]
 class Factura
 {
+    use Shared;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    private int $id;
+    public int $id;
 
     #[ORM\ManyToOne(targetEntity: Reserva::class)]
     #[ORM\JoinColumn(name: 'reserva_id', referencedColumnName: 'id', nullable: false)]
-    private Reserva $reserva;
+    public Reserva $reserva;
 
     #[ORM\Column(type: 'datetime', options: ['default' => 'CURRENT_TIMESTAMP'])]
-    private \DateTime $fecha_emision;
+    public \DateTime $fecha_emision;
 
     #[ORM\Column(type: 'decimal', precision: 10, scale: 2)]
-    private float $subtotal;
+    public float $subtotal;
 
     #[ORM\Column(type: 'decimal', precision: 10, scale: 2)]
-    private float $impuestos;
+    public float $impuestos;
 
     #[ORM\Column(type: 'decimal', precision: 10, scale: 2)]
-    private float $total;
+    public float $total;
 
     #[ORM\Column(type: 'text', nullable: true)]
-    private ?string $descripcion = null;
+    public ?string $descripcion = null;
 
     #[ORM\Column(type: 'string', options: ['default' => 'Emitida'], columnDefinition: "ENUM('Emitida', 'Anulada', 'Pagada')")]
-    private string $estado = 'Emitida';
+    public string $estado = 'Emitida';
 }

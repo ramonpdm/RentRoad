@@ -2,13 +2,16 @@
 
 namespace App\Entities;
 
-use App\Repositories\VehiclesRepo;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repositories\VehiclesRepo;
+use App\Traits\Entities\Shared;
 
 #[ORM\Entity(repositoryClass: VehiclesRepo::class)]
 #[ORM\Table(name: 'vehiculos')]
 class Vehiculo
 {
+    use Shared;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
