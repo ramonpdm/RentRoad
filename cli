@@ -30,8 +30,8 @@ $app
     ->setDescription('Seed the database with initial data')
     ->setCode(function (InputInterface $input, OutputInterface $output) use ($entityManager) {
         $txt = '';
-        exec('./cli orm:schema-tool:drop -f', $txt);
-        exec('./cli db:update', $txt);
+        exec('php cli orm:schema-tool:drop -f', $txt);
+        exec('php cli db:update', $txt);
 
         // Exec all the seeders under the 'App\Seeders' namespace
         $seeders = glob('app/Seeders/*.php');
@@ -55,9 +55,8 @@ $app
     ->setDescription('Update the schema')
     ->setCode(function (InputInterface $input, OutputInterface $output) {
         $txt = '';
-        exec('./cli orm:clear-cache:metadata', $txt);
-        exec('./cli orm:generate-proxies', $txt);
-        exec('./cli orm:schema-tool:update -f', $txt);
+        exec('php cli orm:schema-tool:update -f', $txt);
+        exec('find /tmp -name "*.php*" -type f -delete', $txt);
         $output->writeln($txt);
     });
 

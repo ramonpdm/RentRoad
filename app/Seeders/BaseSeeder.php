@@ -6,8 +6,8 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class BaseSeeder
 {
+    const int ORDER = 0;
     protected EntityManagerInterface $entityManager;
-    protected string $className;
 
     public function __construct(EntityManagerInterface $entityManager)
     {
@@ -23,18 +23,15 @@ class BaseSeeder
 
     public function run(): void
     {
-        foreach ($this->data() as $data) {
-            $entity = new $this->className();
-            foreach ($data as $column => $value) {
-                if (!property_exists($entity, $column)) {
-                    continue;
-                }
-
-                $entity->{$column} = $value;
-            }
+        foreach ($this->data() as $entity) {
             $this->entityManager->persist($entity);
         }
 
         $this->entityManager->flush();
+    }
+
+    public function getRepo(string $entityClass): \Doctrine\ORM\EntityRepository
+    {
+        return $this->entityManager->getRepository($entityClass);
     }
 }

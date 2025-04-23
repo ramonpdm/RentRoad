@@ -7,13 +7,13 @@ use App\Entities\Vehiculo;
 
 class VehiculoSeeder extends BaseSeeder
 {
-    protected string $className = Vehiculo::class;
+    const int ORDER = 5;
 
     public function data(): array
     {
         $categoriesRepo = $this->entityManager->getRepository(CategoriaVehiculo::class);
         return [
-            [
+            new Vehiculo([
                 'marca' => 'Toyota',
                 'modelo' => 'Corolla',
                 'ano' => 2020,
@@ -28,8 +28,8 @@ class VehiculoSeeder extends BaseSeeder
                 'tarifa_diaria' => 30.00,
                 'categoria' => $categoriesRepo->find(1),
                 'imagen_url' => '/public/images/car_1.jpg'
-            ],
-            [
+            ]),
+            new Vehiculo([
                 'marca' => 'Ford',
                 'modelo' => 'Explorer',
                 'ano' => 2021,
@@ -44,8 +44,8 @@ class VehiculoSeeder extends BaseSeeder
                 'tarifa_diaria' => 60.00,
                 'categoria' => $categoriesRepo->find(2),
                 'imagen_url' => '/public/images/car_2.jpg'
-            ],
-            [
+            ]),
+            new Vehiculo([
                 'marca' => 'BMW',
                 'modelo' => 'Serie 5',
                 'ano' => 2022,
@@ -60,7 +60,7 @@ class VehiculoSeeder extends BaseSeeder
                 'tarifa_diaria' => 120.00,
                 'categoria' => $categoriesRepo->find(3),
                 'imagen_url' => '/public/images/car_3.jpg'
-            ],
+            ]),
         ];
     }
 }
