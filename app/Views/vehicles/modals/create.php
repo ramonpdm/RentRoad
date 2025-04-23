@@ -1,4 +1,8 @@
-<!-- Modal -->
+<?php
+
+use App\Entities\CategoriaVehiculo;
+
+/** @var CategoriaVehiculo[] $categories */ ?>
 <div class="modal fade" id="createVehicleModal" tabindex="-1" role="dialog" aria-labelledby="createVehicleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -34,7 +38,9 @@
                         <div class="form-group col-md-6">
                             <label for="categoria">Categoría</label>
                             <select class="form-control" id="categoria" name="categoria" required>
-                                <!-- Opciones dinámicas -->
+                                <?php foreach ($categories as $category): ?>
+                                    <option value="<?= $category->id ?>"><?= $category->nombre ?></option>
+                                <?php endforeach; ?>
                             </select>
                         </div>
                         <div class="form-group col-md-6">
