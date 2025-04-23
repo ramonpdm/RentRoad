@@ -118,20 +118,20 @@
                         </div>
                         <div class="d-block d-md-flex mb-3 border-bottom pb-3">
                             <div class="listing-feature pr-4">
-                                <span class="caption">Luggage:</span>
+                                <span class="caption">Equipaje:</span>
                                 <span class="number">8</span>
                             </div>
                             <div class="listing-feature pr-4">
-                                <span class="caption">Doors:</span>
+                                <span class="caption">Puertas:</span>
                                 <span class="number">4</span>
                             </div>
                             <div class="listing-feature pr-4">
-                                <span class="caption">Passenger:</span>
+                                <span class="caption">Pasajeros:</span>
                                 <span class="number">4</span>
                             </div>
                         </div>
                         <div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos eos at eum, voluptatem quibusdam.</p>
+<!--                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos eos at eum, voluptatem quibusdam.</p>-->
                             <p><a href="/rent" class="btn btn-primary btn-sm">Rent Now</a></p>
                         </div>
                     </div>
@@ -153,9 +153,9 @@
 
             if (
                 vehicleText.includes(search)
-                || marca.includes(search) || marca.includes(filters.marca)
-                || modelo.includes(search) || modelo.includes(filters.modelo)
-                || ano.includes(search) || ano.includes(filters.ano)
+                || marca.includes(search)
+                || modelo.includes(search)
+                || ano.includes(search)
             ) {
                 form.parentElement.style.display = 'block';
             } else {
