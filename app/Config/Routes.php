@@ -8,7 +8,7 @@ use Steampixel\Route;
 use App\Exceptions\HTTP\HttpException;
 
 use App\Controllers\Backend\APIController;
-use App\Controllers\Frontend\{BaseController, HomeController};
+use App\Controllers\Frontend\{AuthController, BaseController, HomeController};
 
 class Routes
 {
@@ -92,6 +92,12 @@ class Routes
         /* ---- FRONTEND SPECIFIC ROUTES ---- */
         /* ---------------------------------- */
         Route::add('/', $this->call(HomeController::class));
+        Route::add('/vehicles', $this->call(HomeController::class, 'vehicles'));
+        Route::add('/rent', $this->call(HomeController::class, 'rent'));
+        Route::add('/confirmation', $this->call(HomeController::class, 'confirmation'));
+
+        Route::add('/login', $this->call(AuthController::class, 'login'));
+        Route::add('/register', $this->call(AuthController::class, 'register'));
 
         /* ---------------------------------- */
         /* ------ FRONTEND AUTO ROUTES ------ */
@@ -118,8 +124,6 @@ class Routes
 
     /**
      * Get the engine controller based on the request type.
-     *
-     * @throws HttpException
      */
     public function getEngine(): Controller|BaseController|APIController
     {
