@@ -50,6 +50,7 @@
 <script type="application/javascript">
     document.addEventListener('DOMContentLoaded', async () => {
         await renderVehicles();
+        setStaticListeners();
     })
 
     const getVehicles = async () => fetch('/api/v1/vehicles')
@@ -67,44 +68,109 @@
 
         const container = document.getElementById('vehicles-list');
         container.innerHTML = html;
+
+        setDynamicListeners();
     }
 
     const renderVehicle = (vehicle) => {
         return `
         <div class="col-md-6 col-lg-4 mb-4">
-            <div class="listing d-block  align-items-stretch">
-                <div class="listing-img h-100 mr-4">
-                    <img src="${vehicle.imagen_url}" alt="Image" class="img-fluid">
+            <form id="vehicle-form-${vehicle.id}">
+                <input type="hidden" name="id" value="${vehicle.id}">
+                <div class="listing d-block align-items-stretch">
+                    <div class="listing-img h-100 mr-4">
+                        <img src="${vehicle.imagen_url}" alt="Image" class="img-fluid">
+                    </div>
+                    <div class="listing-contents h-100">
+                        <div class="d-flex justify-content-between">
+                            <h3>${vehicle.marca} ${vehicle.modelo}</h3>
+                            <div class="text-nowrap">
+                                <i class="edit pointer bi bi-pencil-square text-primary"></i>
+                                <i class="delete pointer bi bi-trash3 text-danger"></i>
+                            </div>
+                        </div>
+                        <div class="rent-price">
+                            <strong>$389.00</strong><span class="mx-1">/</span>day
+                        </div>
+                        <div class="d-block d-md-flex mb-3 border-bottom pb-3">
+                            <div class="listing-feature pr-4">
+                                <span class="caption">Luggage:</span>
+                                <span class="number">8</span>
+                            </div>
+                            <div class="listing-feature pr-4">
+                                <span class="caption">Doors:</span>
+                                <span class="number">4</span>
+                            </div>
+                            <div class="listing-feature pr-4">
+                                <span class="caption">Passenger:</span>
+                                <span class="number">4</span>
+                            </div>
+                        </div>
+                        <div>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos eos at eum, voluptatem quibusdam.</p>
+                            <p><a href="/rent" class="btn btn-primary btn-sm">Rent Now</a></p>
+                        </div>
+                    </div>
                 </div>
-                <div class="listing-contents h-100">
-                    <h3>${vehicle.marca} ${vehicle.modelo}</h3>
-                    <div class="rent-price">
-                        <strong>$389.00</strong><span class="mx-1">/</span>day
-                    </div>
-                    <div class="d-block d-md-flex mb-3 border-bottom pb-3">
-                        <div class="listing-feature pr-4">
-                            <span class="caption">Luggage:</span>
-                            <span class="number">8</span>
-                        </div>
-                        <div class="listing-feature pr-4">
-                            <span class="caption">Doors:</span>
-                            <span class="number">4</span>
-                        </div>
-                        <div class="listing-feature pr-4">
-                            <span class="caption">Passenger:</span>
-                            <span class="number">4</span>
-                        </div>
-                    </div>
-                    <div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos eos at eum, voluptatem quibusdam.</p>
-                        <p><a href="/rent" class="btn btn-primary btn-sm">Rent Now</a></p>
-                    </div>
-                </div>
-            </div>
+            </form>
         </div>
         `
     }
 
+    const setStaticListeners = () => {
+        const createVehicleForm = document.getElementById('createVehicleForm');
+        createVehicleForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const formData = new FormData(createVehicleForm);
+            await createVehicle(formData);
+        });
+    }
+
+    const setDynamicListeners = () => {
+        const deleteButtons = document.querySelectorAll('.delete');
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', async (event) => {
+                if (!confirm('¿Está seguro de que desea eliminar este vehículo?')) {
+                    return;
+                }
+
+                const form = event.target.closest('form');
+                const vehicleId = form.querySelector('input[name="id"]').value;
+                await deleteVehicle(vehicleId);
+            });
+        });
+    }
+
+    const createVehicle = async (data) => {
+        const response = await fetch('/api/v1/vehicles', {
+            method: 'POST',
+            body: data
+        });
+
+        const vehicle = await response.json();
+        if (!response.ok) {
+            alert('Error creating vehicle: ' + vehicle.message);
+            return;
+        }
+
+        $('#createVehicleModal').modal('hide');
+        renderVehicles();
+    }
+
+    const deleteVehicle = async (vehicleId) => {
+        const response = await fetch(`/api/v1/vehicles/${vehicleId}`, {
+            method: 'DELETE'
+        });
+        const json = await response.json();
+
+        alert(json.message || 'Error deleting vehicle');
+
+        if (!response.ok) {
+            return;
+        }
+
+        renderVehicles();
+    }
 </script>
 
 <?php include APP_VIEWS_DIR . '/inc/footer.php'; ?>
