@@ -35,8 +35,8 @@
                                         <span class="icon icon-calendar"></span>
                                     </div>
                                 </div>
-                                <div class="mb-3 mb-md-0 col-md-3">
-                                    <input type="submit" value="Buscar" class="btn btn-primary btn-block py-3">
+                                <div class="mb-3 mb-md-0 col">
+                                    <input type="submit" value="Buscar" class="btn btn-primary btn-block py-3 w-100">
                                 </div>
                             </div>
                         </form>
