@@ -34,10 +34,10 @@
                 </div>
                 <div class="error-description">
                     <h3 class="h2">
-                        Looks like you're lost
+                        ¡Parece que estás perdido!
                     </h3>
-                    <p>The page you are looking for is not available!</p>
-                    <a href="/" class="btn btn-primary">Go to Home</a>
+                    <p>La página que estás buscando no existe o ha sido eliminada.</p>
+                    <a href="/" class="btn btn-primary">Volver al Inicio</a>
                 </div>
 
             <?php endif ?>
