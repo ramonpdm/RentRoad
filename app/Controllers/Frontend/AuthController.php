@@ -5,6 +5,8 @@ namespace App\Controllers\Frontend;
 use Throwable;
 use App\Config\Auth;
 use App\Services\AuthService;
+use App\Entities\Cliente;
+use App\Entities\Usuario;
 
 class AuthController extends BaseController
 {
@@ -23,7 +25,8 @@ class AuthController extends BaseController
             $password = $_POST['password'] ?? '';
 
             try {
-                AuthService::login($email, $password);
+                $class = $_POST['type'] === 'customer' ? Cliente::class : Usuario::class;
+                AuthService::login($email, $password, $class);
             } catch (Throwable $e) {
                 $response = [
                     'error' => true,

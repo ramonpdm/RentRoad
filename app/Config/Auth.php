@@ -2,18 +2,22 @@
 
 namespace App\Config;
 
+use App\Entities\Cliente;
+use App\Entities\Persona;
 use App\Entities\Usuario;
 
 class Auth
 {
-    public static function user(): ?Usuario
+    public static function user(): ?Persona
     {
         $userId = $_SESSION['user']['id'] ?? null;
+        $roleName = $_SESSION['user']['rol']['nombre'] ?? null;
+        $className = $roleName === null ? Cliente::class : Usuario::class;
 
         if ($userId === null)
             return null;
 
-        $user = Application::getOrm()->getRepo(Usuario::class)
+        $user = Application::getOrm()->getRepo($className)
             ->find($userId);
 
         if ($user === null) {
