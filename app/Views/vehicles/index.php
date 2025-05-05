@@ -132,7 +132,7 @@
                         </div>
                         <div>
 <!--                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos eos at eum, voluptatem quibusdam.</p>-->
-                            <p><a href="/rent" class="btn btn-primary btn-sm">Rentar</a></p>
+                            <p><a href="/rent?vehicle=${vehicle.id}" class="btn btn-primary btn-sm">Rentar</a></p>
                         </div>
                     </div>
                 </div>

@@ -2,8 +2,9 @@
 
 namespace App\Entities;
 
-use App\Enums\EstadoRenta;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use App\Enums\EstadoRenta;
 use App\Traits\Entities\Shared;
 
 #[ORM\Entity]
@@ -35,17 +36,17 @@ class Renta
     public Sucursal $sucursal_recogida;
 
     #[ORM\ManyToOne]
-    #[ORM\JoinColumn(nullable: true)]
-    public ?Sucursal $sucursal_devolucion = null;
+    #[ORM\JoinColumn(nullable: false)]
+    public Sucursal $sucursal_devolucion;
 
     #[ORM\Column(type: 'datetime', options: ['default' => 'CURRENT_TIMESTAMP'])]
-    public \DateTime $fecha_reserva;
+    public DateTime $fecha_reserva;
 
     #[ORM\Column(type: 'datetime')]
-    public \DateTime $fecha_recogida;
+    public DateTime $fecha_recogida;
 
     #[ORM\Column(type: 'datetime')]
-    public \DateTime $fecha_devolucion;
+    public DateTime $fecha_devolucion;
 
     #[ORM\Column(enumType: EstadoRenta::class, options: ['default' => EstadoRenta::Pendiente])]
     public EstadoRenta $estado = EstadoRenta::Pendiente;

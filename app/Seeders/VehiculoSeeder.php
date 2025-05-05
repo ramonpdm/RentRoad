@@ -3,6 +3,7 @@
 namespace App\Seeders;
 
 use App\Entities\CategoriaVehiculo;
+use App\Entities\Sucursal;
 use App\Entities\Vehiculo;
 
 class VehiculoSeeder extends BaseSeeder
@@ -12,6 +13,7 @@ class VehiculoSeeder extends BaseSeeder
         $categoriesRepo = $this->entityManager->getRepository(CategoriaVehiculo::class);
         return [
             new Vehiculo([
+                'sucursal' => $this->getRepo(Sucursal::class)->find(1),
                 'marca' => 'Mazda',
                 'modelo' => 'CX-5',
                 'ano' => 2025,
@@ -27,6 +29,7 @@ class VehiculoSeeder extends BaseSeeder
                 'imagen_url' => '/public/images/mazda_cx5.jpg'
             ]),
             new Vehiculo([
+                'sucursal' => $this->getRepo(Sucursal::class)->find(1),
                 'marca' => 'Toyota',
                 'modelo' => 'Corolla',
                 'ano' => 2020,
@@ -42,6 +45,7 @@ class VehiculoSeeder extends BaseSeeder
                 'imagen_url' => '/public/images/car_1.jpg'
             ]),
             new Vehiculo([
+                'sucursal' => $this->getRepo(Sucursal::class)->find(1),
                 'marca' => 'Ford',
                 'modelo' => 'Explorer',
                 'ano' => 2021,
@@ -57,6 +61,7 @@ class VehiculoSeeder extends BaseSeeder
                 'imagen_url' => '/public/images/car_2.jpg'
             ]),
             new Vehiculo([
+                'sucursal' => $this->getRepo(Sucursal::class)->find(1),
                 'marca' => 'BMW',
                 'modelo' => 'Serie 5',
                 'ano' => 2022,

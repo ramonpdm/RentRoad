@@ -14,10 +14,21 @@ class SucursalSeeder extends BaseSeeder
                 'direccion' => 'Av. Principal 123, Centro',
                 'ciudad' => 'Ciudad Central',
                 'telefono' => '123456789',
-                'email' => 'contacto@sucursalcentral.com',
-                'aeropuerto_asociado' => 'Aeropuerto Internacional',
+                'email' => 'central@rentroad.com',
+                'aeropuerto_asociado' => 'Aeropuerto Internacional SDQ',
                 'horario_apertura' => new \DateTime('08:00:00'),
                 'horario_cierre' => new \DateTime('18:00:00'),
-            ]),];
+            ]),
+            new Sucursal([
+                'nombre' => 'Sucursal Villa Mella',
+                'direccion' => 'Av. Hermanas Mirabal, Sector Blablabla, 54B',
+                'ciudad' => 'Santo Domingo Norte',
+                'telefono' => '123456789',
+                'email' => 'villamella@rentroad.com',
+                'aeropuerto_asociado' => 'Aeropuerto Internacional SDQ',
+                'horario_apertura' => new \DateTime('08:00:00'),
+                'horario_cierre' => new \DateTime('18:00:00'),
+            ]),
+        ];
     }
 }

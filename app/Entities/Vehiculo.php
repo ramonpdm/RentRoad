@@ -2,6 +2,7 @@
 
 namespace App\Entities;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repositories\VehiclesRepo;
 use App\Traits\Entities\Shared;
@@ -30,9 +31,17 @@ class Vehiculo
     #[ORM\Column(type: 'string', length: 20, unique: true)]
     public string $placa;
 
-    #[ORM\ManyToOne(targetEntity: CategoriaVehiculo::class)]
-    #[ORM\JoinColumn(name: 'categoria_id', referencedColumnName: 'id', nullable: false)]
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false)]
     public CategoriaVehiculo $categoria;
+
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false)]
+    public Sucursal $sucursal;
+
+    #[ORM\OneToMany(targetEntity: Tarifa::class, mappedBy: 'vehiculo')]
+    /** @var Collection<int, Tarifa> $tarifas */
+    public Collection $tarifas;
 
     #[ORM\Column(type: 'string', length: 30, nullable: true)]
     public ?string $color = null;
@@ -52,13 +61,14 @@ class Vehiculo
     #[ORM\Column(type: 'string', columnDefinition: "ENUM('Gasolina', 'Diesel', 'Híbrido', 'Eléctrico')")]
     public string $combustible;
 
-    #[ORM\ManyToOne(targetEntity: Sucursal::class)]
-    #[ORM\JoinColumn(name: 'sucursal_id', referencedColumnName: 'id', nullable: true)]
-    public ?Sucursal $sucursal = null;
-
     #[ORM\Column(type: 'string', options: ['default' => 'Disponible'], columnDefinition: "ENUM('Disponible', 'Alquilado', 'Mantenimiento', 'Fuera de servicio')")]
     public string $estado = 'Disponible';
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     public ?string $imagen_url = null;
+
+    public function getNombre()
+    {
+        return $this->marca . ' ' . $this->modelo;
+    }
 }

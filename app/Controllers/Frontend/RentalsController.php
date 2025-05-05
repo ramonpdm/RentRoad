@@ -4,6 +4,8 @@ namespace App\Controllers\Frontend;
 
 use App\Config\Auth;
 use App\Entities\Renta;
+use App\Entities\Sucursal;
+use App\Entities\Vehiculo;
 
 class RentalsController extends BaseController
 {
@@ -30,6 +32,25 @@ class RentalsController extends BaseController
 
     public function rent(): string
     {
-        return $this->renderView('rentals/rent');
+        $vehicleId = $_GET['vehicle'] ?? null;
+
+        if ($vehicleId === null) {
+            return $this->redirect('/vehicles');
+        }
+
+        $vehiclesRepo = $this->getRepo(Vehiculo::class);
+        $vehicle = $vehiclesRepo->find($vehicleId);
+
+        if (!$vehicle instanceof Vehiculo) {
+            return $this->renderView(404);
+        }
+
+        $branches = $this->getRepo(Sucursal::class)->findAll();
+
+        return $this->renderView('rentals/rent', [
+            'title' => 'Rentar ' . $vehicle->getNombre(),
+            'vehicle' => $vehicle,
+            'branches' => $branches,
+        ]);
     }
 }
