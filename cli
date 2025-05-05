@@ -33,16 +33,12 @@ $app
         exec('php cli orm:schema-tool:drop -f', $txt);
         exec('php cli db:update', $txt);
 
-        // Exec all the seeders under the 'App\Seeders' namespace
-        $seeders = glob('app/Seeders/*.php');
+        $seeders = \App\Seeders\BaseSeeder::ORDER;
 
         foreach ($seeders as $seeder) {
-            $className = 'App\\Seeders\\' . basename($seeder, '.php');
-            if (class_exists($className)) {
-                $seederInstance = new $className($entityManager);
-                if (method_exists($seederInstance, 'run')) {
-                    $seederInstance->run();
-                }
+            $seederInstance = new $seeder($entityManager);
+            if (method_exists($seederInstance, 'run')) {
+                $seederInstance->run();
             }
         }
 

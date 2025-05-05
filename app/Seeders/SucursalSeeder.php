@@ -6,8 +6,6 @@ use App\Entities\Sucursal;
 
 class SucursalSeeder extends BaseSeeder
 {
-    const int ORDER = 2;
-
     public function data(): array
     {
         return [

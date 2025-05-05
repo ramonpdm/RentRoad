@@ -7,8 +7,6 @@ use App\Entities\Vehiculo;
 
 class VehiculoSeeder extends BaseSeeder
 {
-    const int ORDER = 5;
-
     public function data(): array
     {
         $categoriesRepo = $this->entityManager->getRepository(CategoriaVehiculo::class);

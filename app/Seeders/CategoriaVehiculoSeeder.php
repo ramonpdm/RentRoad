@@ -6,8 +6,6 @@ use App\Entities\CategoriaVehiculo;
 
 class CategoriaVehiculoSeeder extends BaseSeeder
 {
-    const int ORDER = 4;
-
     public function data(): array
     {
         return [

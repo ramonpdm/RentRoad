@@ -3,10 +3,21 @@
 namespace App\Seeders;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityRepository;
 
 class BaseSeeder
 {
-    const int ORDER = 0;
+    const array ORDER = [
+        1 => RolSeeder::class,
+        2 => SucursalSeeder::class,
+        3 => UsuarioSeeder::class,
+        4 => CategoriaVehiculoSeeder::class,
+        5 => VehiculoSeeder::class,
+        6 => TarifaSeeder::class,
+        7 => ClienteSeeder::class,
+        8 => RentaSeeder::class,
+    ];
+
     protected EntityManagerInterface $entityManager;
 
     public function __construct(EntityManagerInterface $entityManager)
@@ -30,7 +41,7 @@ class BaseSeeder
         $this->entityManager->flush();
     }
 
-    public function getRepo(string $entityClass): \Doctrine\ORM\EntityRepository
+    public function getRepo(string $entityClass): EntityRepository
     {
         return $this->entityManager->getRepository($entityClass);
     }
