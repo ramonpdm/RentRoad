@@ -13,13 +13,13 @@ use App\Entities\Usuario;
                 <div class="intro">
                     <?php if ($user->id === Auth::user()->id && $user->isCustomer() === Auth::user()->isCustomer()): ?>
                         <h1>Bienvenido,
-                            <strong style="color: #007bff"><?= $user->nombre ?></strong>
+                            <strong class="text-primary"><?= $user->nombre ?></strong>
                         </h1>
                         <div class="custom-breadcrumbs"><a href="/">Inicio</a> <span class="mx-2">/</span>
                             <strong>Perfil</strong>
                         </div>
                     <?php else: ?>
-                        <h1>Perfil de <strong style="color: #007bff"><?= $user->nombre ?></strong></h1>
+                        <h1>Perfil de <strong class="text-primary"><?= $user->nombre ?></strong></h1>
                         <div class="custom-breadcrumbs"><a href="/">Inicio</a> <span class="mx-2">/</span>
                             <strong><?= $user->isCustomer() ? 'Cliente' : 'Empleado' ?></strong>
                         </div>

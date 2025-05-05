@@ -8,7 +8,7 @@
                     <div class="col-lg-10">
                         <div class="row mb-5">
                             <div class="col-lg-7 intro">
-                                <h1>Tu <strong style="color: #007bff">próximo viaje</strong> empieza aquí.</h1>
+                                <h1>Tu <strong class="text-primary">próximo viaje</strong> empieza aquí.</h1>
                             </div>
                         </div>
 
