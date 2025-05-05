@@ -2,6 +2,7 @@
 
 namespace App\Config;
 
+use Doctrine\ORM\EntityRepository;
 use ReflectionClass;
 
 use App\Exceptions\Exception;
@@ -43,7 +44,7 @@ abstract class Controller
      * Default repository to be used in the controller,
      * based on the entity.
      */
-    protected ?object $repository = null;
+    protected ?EntityRepository $repository = null;
 
     /**
      * Controller constructor.
@@ -233,7 +234,7 @@ abstract class Controller
      *
      * @throws Exception
      */
-    public function getRepo(?string $className = null): ?object
+    public function getRepo(?string $className = null): ?EntityRepository
     {
         if ($className !== null) {
             if (!class_exists($className)) {
