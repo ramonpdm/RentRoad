@@ -114,24 +114,35 @@
                             </div>
                         </div>
                         <div class="rent-price">
-                            <strong>$389.00</strong><span class="mx-1">/</span>day
+                            <strong>US$${vehicle.costo}</strong><span class="mx-1">/</span>day
                         </div>
                         <div class="d-block d-md-flex mb-3 border-bottom pb-3">
-                            <div class="listing-feature pr-4">
-                                <span class="caption">Equipaje:</span>
-                                <span class="number">8</span>
-                            </div>
-                            <div class="listing-feature pr-4">
-                                <span class="caption">Puertas:</span>
-                                <span class="number">4</span>
-                            </div>
-                            <div class="listing-feature pr-4">
-                                <span class="caption">Pasajeros:</span>
-                                <span class="number">4</span>
-                            </div>
+                            <table class="table table-borderless mb-3">
+                                <tbody>
+                                    <tr>
+                                        <td>Color</td>
+                                        <td>${vehicle.color || 'N/A'}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Transmisión</td>
+                                        <td>${vehicle.transmision || 'N/A'}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Combustible</td>
+                                        <td>${vehicle.combustible?.name || 'N/A'}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Pasajeros</td>
+                                        <td>${vehicle.capacidad_pasajeros || 'N/A'}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Maletero</td>
+                                        <td>${vehicle.capacidad_maletero || 'N/A'}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                         <div>
-<!--                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos eos at eum, voluptatem quibusdam.</p>-->
                             <p><a href="/rent?vehicle=${vehicle.id}" class="btn btn-primary btn-sm">Rentar</a></p>
                         </div>
                     </div>

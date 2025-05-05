@@ -86,7 +86,7 @@ include APP_VIEWS_DIR . '/inc/header.php';
                                         (<?= $renta->getDiasRenta() ?> días)
                                     </td>
                                     <td><?= $renta->estado->value ?></td>
-                                    <td><?= $renta->seguro ? '$' . number_format($renta->tarifa->costo_seguro, 2) : 'No' ?></td>
+                                    <td><?= $renta->seguro ? '$' . number_format($renta->costo_seguro, 2) : 'No' ?></td>
                                     <td>$<?= number_format($renta->getCostoTotal(), 2) ?></td>
                                     <td><?= $renta->observaciones ?? 'Ninguna' ?></td>
                                 </tr>

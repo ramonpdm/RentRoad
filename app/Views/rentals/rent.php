@@ -38,16 +38,24 @@ include APP_VIEWS_DIR . '/inc/header.php';
                         <table class="table table-borderless mb-3">
                             <tbody>
                                 <tr>
-                                    <td>Equipaje</td>
-                                    <td>8</td>
+                                    <td>Color</td>
+                                    <td><?= $vehicle->color ?></td>
                                 </tr>
                                 <tr>
-                                    <td>Puertas</td>
-                                    <td>4</td>
+                                    <td>Transmisión</td>
+                                    <td><?= $vehicle->transmision ?></td>
+                                </tr>
+                                <tr>
+                                    <td>Combustible</td>
+                                    <td><?= $vehicle->combustible->name ?></td>
                                 </tr>
                                 <tr>
                                     <td>Pasajeros</td>
-                                    <td>4</td>
+                                    <td><?= $vehicle->capacidad_pasajeros ?></td>
+                                </tr>
+                                <tr>
+                                    <td>Maletero</td>
+                                    <td><?= $vehicle->capacidad_maletero ?></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -61,12 +69,11 @@ include APP_VIEWS_DIR . '/inc/header.php';
                     <div class="row mb-3">
                         <div class="col">
                             <label for="tarifa">Tarifa</label>
-                            <select id="tarifa" name="tarifa_id" class="form-control" required>
-                                <option value="" disabled selected>Seleccione una tarifa</option>
-                                <?php foreach ($vehicle->tarifas as $tarifa) : ?>
-                                    <option value="<?= $tarifa->id ?>"><?= $tarifa->tipo->value ?> - US$<?= number_format($tarifa->costo_base, 2) ?>/día</option>
-                                <?php endforeach; ?>
-                            </select>
+                            <input id="tarifa" name="tarifa" class="form-control" value="US$<?= number_format($vehicle->getCosto(), 2) ?>/día" required disabled>
+                        </div>
+                        <div class="col">
+                            <label for="seguro">Seguro</label>
+                            <input id="seguro" name="seguro" class="form-control" value="US$<?= number_format($vehicle->getCostoSeguro(), 2) ?>" required disabled>
                         </div>
                     </div>
                     <div class="row mb-3">

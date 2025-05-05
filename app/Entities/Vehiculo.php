@@ -3,7 +3,6 @@
 namespace App\Entities;
 
 use App\Enums\EstadoVehiculo;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Enums\Combustible;
 use App\Repositories\VehiclesRepo;
@@ -34,16 +33,12 @@ class Vehiculo
     public string $placa;
 
     #[ORM\ManyToOne]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(name: 'categoria', nullable: false)]
     public CategoriaVehiculo $categoria;
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
     public Sucursal $sucursal;
-
-    #[ORM\OneToMany(targetEntity: Tarifa::class, mappedBy: 'vehiculo')]
-    /** @var Collection<int, Tarifa> $tarifas */
-    public Collection $tarifas;
 
     #[ORM\Column(type: 'string', length: 30, nullable: true)]
     public ?string $color = null;
@@ -60,6 +55,12 @@ class Vehiculo
     #[ORM\Column(type: 'integer', nullable: true)]
     public ?int $capacidad_maletero = null;
 
+    #[ORM\Column(nullable: true, options: ['default' => null])]
+    public ?float $costo = null;
+
+    #[ORM\Column(nullable: true, options: ['default' => null])]
+    public ?float $costo_seguro = null;
+
     #[ORM\Column(enumType: Combustible::class, options: ['default' => Combustible::Gasolina])]
     public Combustible $combustible;
 
@@ -69,8 +70,23 @@ class Vehiculo
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     public ?string $imagen_url = null;
 
-    public function getNombre()
+    public function getNombre(): string
     {
         return $this->marca . ' ' . $this->modelo;
+    }
+
+    public function getCosto(): float
+    {
+        return $this->costo ?? $this->categoria->costo_base;
+    }
+
+    public function getCostoSeguro(): float
+    {
+        return $this->costo_seguro ?? $this->categoria->costo_seguro_base;
+    }
+
+    public function getCostoTotal(): float
+    {
+        return $this->getCosto() + $this->getCostoSeguro();
     }
 }

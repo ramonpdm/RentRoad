@@ -13,9 +13,8 @@ class BaseSeeder
         3 => UsuarioSeeder::class,
         4 => CategoriaVehiculoSeeder::class,
         5 => VehiculoSeeder::class,
-        6 => TarifaSeeder::class,
-        7 => ClienteSeeder::class,
-        8 => RentaSeeder::class,
+        6 => ClienteSeeder::class,
+        7 => RentaSeeder::class,
     ];
 
     protected EntityManagerInterface $entityManager;

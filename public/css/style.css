@@ -2004,3 +2004,7 @@ h1, h2, h3, h4, h5,
     color: #888;
     font-size: 14px;
 }
+
+.listing table tr td {
+    padding: 0;
+}

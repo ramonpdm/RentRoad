@@ -29,10 +29,6 @@ class Renta
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
-    public Tarifa $tarifa;
-
-    #[ORM\ManyToOne]
-    #[ORM\JoinColumn(nullable: false)]
     public Sucursal $sucursal_recogida;
 
     #[ORM\ManyToOne]
@@ -51,8 +47,11 @@ class Renta
     #[ORM\Column(enumType: EstadoRenta::class, options: ['default' => EstadoRenta::Pendiente])]
     public EstadoRenta $estado = EstadoRenta::Pendiente;
 
-    #[ORM\Column(type: 'boolean', options: ['default' => false])]
-    public bool $seguro = false;
+    #[ORM\Column]
+    public float $costo;
+
+    #[ORM\Column]
+    public float $costo_seguro;
 
     #[ORM\Column(type: 'text', nullable: true)]
     public ?string $observaciones = null;
@@ -65,12 +64,7 @@ class Renta
 
     public function getCostoTotal(): float
     {
-        $cost = $this->tarifa->costo_base;
-
-        if ($this->seguro) {
-            $cost += $this->tarifa->costo_seguro;
-        }
-
+        $cost = $this->costo + $this->costo_seguro;
         return $cost * $this->getDiasRenta();
     }
 }

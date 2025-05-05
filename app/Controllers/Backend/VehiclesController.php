@@ -12,7 +12,17 @@ class VehiclesController extends APIController
     {
         /** @var VehiclesRepo $repo */
         $repo = $this->getRepo(Vehiculo::class);
-        $data = $repo->findAll();
+        $data = array_map(
+            function (Vehiculo $v) {
+                return [
+                    ...$v->toArray(),
+                    'costo' => $v->getCosto(),
+                    'costo_seguro' => $v->getCostoSeguro(),
+                ];
+            },
+            $repo->findAll()
+        );
+
         return $this->sendOutput(['data' => $data]);
     }
 
@@ -39,7 +49,6 @@ class VehiclesController extends APIController
         $vehicle->combustible = $request['combustible'];
         $vehicle->sucursal = $request['sucursal'];
         $vehicle->estado = $request['estado'];
-        $vehicle->tarifa_diaria = $request['tarifa_diaria'];
         $vehicle->imagen_url = $request['imagen_url'];
 
         // Save the vehicle to the database

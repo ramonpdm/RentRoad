@@ -24,5 +24,8 @@ class CategoriaVehiculo
     public ?string $descripcion = null;
 
     #[ORM\Column(type: 'decimal', precision: 10, scale: 2)]
-    public float $tarifa_base;
+    public float $costo_base;
+
+    #[ORM\Column(type: 'decimal', precision: 10, scale: 2)]
+    public float $costo_seguro_base;
 }
