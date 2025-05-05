@@ -1,5 +1,9 @@
 <?php include APP_VIEWS_DIR . '/inc/header.php'; ?>
 
+<?php if (\App\Config\Auth::isLogged() === false) : ?>
+    <?php include 'modals/loginModal.php'; ?>
+<?php endif ?>
+
 <div class="hero inner-page" style="background-image: url('/public/images/hero_1_a.jpg');">
     <div class="container">
         <div class="row align-items-end">

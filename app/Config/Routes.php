@@ -10,6 +10,7 @@ use App\Controllers\Frontend\AuthController;
 use App\Controllers\Frontend\BaseController;
 use App\Controllers\Frontend\UsersController;
 use App\Controllers\Frontend\HomeController;
+use App\Controllers\Frontend\RentalsController;
 
 class Routes
 {
@@ -91,7 +92,6 @@ class Routes
         /* ---- FRONTEND SPECIFIC ROUTES ---- */
         /* ---------------------------------- */
         Route::add('/', $this->call(HomeController::class));
-        Route::add('/rent', $this->call(HomeController::class, 'rent'));
         Route::add('/confirmation', $this->call(HomeController::class, 'confirmation'));
 
         Route::add('/login', $this->call(AuthController::class, 'login'));
@@ -101,21 +101,12 @@ class Routes
 
         Route::add('/profile', $this->call(UsersController::class, 'profile'));
 
+        Route::add('/rent', $this->call(RentalsController::class, 'rent'));
+
         /* ---------------------------------- */
         /* ------ FRONTEND AUTO ROUTES ------ */
         /* ---------------------------------- */
         Route::add('/(.*?)(?:/(.*?))?(?:/(.*?))?(?:/(.*?))?', $this->call());
-
-        $routes = [
-            'GET /login' => ['AuthController', 'login'],
-            'POST /login' => ['AuthController', 'login'],
-            'GET /logout' => ['AuthController', 'logout'],
-
-            // Rutas protegidas
-            'GET /admin/dashboard' => ['AdminController', 'dashboard', [ROL_ADMIN]],
-            'GET /empleado/dashboard' => ['EmpleadoController', 'dashboard', [ROL_EMPLEADO]],
-            'GET /home' => ['HomeController', 'index', [ROL_ADMIN, ROL_EMPLEADO, ROL_CLIENTE]],
-        ];
     }
 
     /**

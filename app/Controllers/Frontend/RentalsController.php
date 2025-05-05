@@ -27,4 +27,9 @@ class RentalsController extends BaseController
             ]
         );
     }
+
+    public function rent(): string
+    {
+        return $this->renderView('rentals/rent');
+    }
 }
