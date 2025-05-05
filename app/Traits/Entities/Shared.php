@@ -15,6 +15,28 @@ trait Shared
         }
     }
 
+    public function toArray(): array
+    {
+        $rfl = new \ReflectionClass($this);
+        $props = $rfl->getProperties(\ReflectionProperty::IS_PUBLIC);
+        $data = [];
+
+        foreach ($props as $prop) {
+            $name = $prop->getName();
+            $value = $this->$name;
+
+            if ($value instanceof \DateTime) {
+                $value = $value->format('Y-m-d H:i:s');
+            } elseif (is_object($value) && method_exists($value, 'toArray')) {
+                $value = $value->toArray();
+            }
+
+            $data[$name] = $value;
+        }
+
+        return $data;
+    }
+
     #[ORM\Column(type: 'boolean', options: ['default' => true])]
     public bool $activo = true;
 
