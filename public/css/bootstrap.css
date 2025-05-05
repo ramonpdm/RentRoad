@@ -1,0 +1,33 @@
+.btn.btn-primary {
+    padding: 12px 25px;
+}
+
+.btn.btn-white {
+    background: #fff;
+    color: #0779e4;
+}
+
+.btn.btn-outline-white {
+    border-color: #fff;
+    background: transparent;
+    color: #fff;
+}
+
+.btn.btn-outline-white:hover {
+    background: #fff;
+    border-color: #fff;
+    color: #000;
+}
+
+.form-control {
+    height: 55px !important;
+}
+
+.form-control:active, .form-control:focus {
+    border-color: #0779e4;
+}
+
+.form-control:hover, .form-control:active, .form-control:focus {
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+}
