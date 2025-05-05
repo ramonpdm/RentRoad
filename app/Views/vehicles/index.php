@@ -7,7 +7,7 @@
 
                 <div class="intro">
                     <h1><strong>Vehículos</strong></h1>
-                    <div class="custom-breadcrumbs"><a href="index.html">Inicio</a> <span class="mx-2">/</span>
+                    <div class="custom-breadcrumbs"><a href="/">Inicio</a> <span class="mx-2">/</span>
                         <strong>Vehículos</strong>
                     </div>
                 </div>
@@ -54,7 +54,7 @@
             <!-- JavaScript llenará esto -->
             <div class="col d-flex justify-content-center">
                 <span class="spinner-border text-primary">
-                    <span class="sr-only">Loading...</span>
+                    <span class="visually-hidden">Loading...</span>
                 </span>
             </div>
         </div>
@@ -132,7 +132,7 @@
                         </div>
                         <div>
 <!--                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos eos at eum, voluptatem quibusdam.</p>-->
-                            <p><a href="/rent" class="btn btn-primary btn-sm">Rent Now</a></p>
+                            <p><a href="/rent" class="btn btn-primary btn-sm">Rentar</a></p>
                         </div>
                     </div>
                 </div>

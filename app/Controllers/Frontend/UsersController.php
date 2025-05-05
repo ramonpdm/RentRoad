@@ -11,7 +11,7 @@ class UsersController extends BaseController
         Auth::checkLogin();
 
         return $this->renderView(
-            'employees/profile',
+            'people/profile',
             [
                 'title' => 'Mi Perfil',
                 'user' => Auth::user(),

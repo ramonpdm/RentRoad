@@ -29,22 +29,22 @@
                         </div>
                     </div>
 
-                    <div class="col-9  text-right">
-
-                        <span class="d-inline-block d-lg-none"><a href="#" class=" site-menu-toggle js-menu-toggle py-5 "><span class="icon-menu h3 text-black"></span></a></span>
-
-                        <nav class="site-navigation text-right ml-auto d-none d-lg-block" role="navigation">
-                            <ul class="site-menu main-menu js-clone-nav ml-auto ">
+                    <div class="col-9 text-right">
+                        <nav class="site-navigation text-right d-none d-lg-block" role="navigation">
+                            <ul class="site-menu main-menu text-end">
                                 <li class="active"><a href="/" class="nav-link">Inicio</a></li>
                                 <li><a href="/vehicles" class="nav-link">Vehículos</a></li>
                                 <?php if (Auth::isLogged()): ?>
+                                    <?php if (Auth::user()->isAdmin()): ?>
+                                        <li><a href="/rentals" class="nav-link">Rentas</a></li>
+                                    <?php endif; ?>
                                     <li>
                                         <a href="/profile" class="nav-link active font-weight-bold"><?= Auth::user()->getNombreCompleto() ?></a>
                                     </li>
                                     <li>
                                         <a href="/logout" class="nav-link font-weight-bold text-danger">Cerrar Sessión</a>
                                     </li>
-                                <?php else: ?>
+                                    <?php else: ?>
                                     <li>
                                         <a href="/login" class="nav-link active font-weight-bold">Iniciar Sesión</a>
                                     </li>
@@ -52,6 +52,7 @@
                             </ul>
                         </nav>
                     </div>
+
                 </div>
             </div>
         </header>
