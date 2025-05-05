@@ -6,7 +6,7 @@
                 <div class="col-lg-6">
                     <div class="card shadow-lg p-4">
                         <h2 class="text-center mb-4">Regístrate</h2>
-                        <form action="/register" method="POST">
+                        <form action="<?= $_SERVER['REQUEST_URI'] ?>" method="POST">
                             <div class="form-group">
                                 <label for="name">Nombre Completo</label>
                                 <input type="text" id="name" name="name" class="form-control" placeholder="Ingresa tu nombre completo" required>
@@ -23,6 +23,28 @@
                                 <label for="confirm_password">Confirmar Contraseña</label>
                                 <input type="password" id="confirm_password" name="confirm_password" class="form-control" placeholder="Confirma tu contraseña" required>
                             </div>
+                            <?php if (isset($message, $error)) : ?>
+                                <div class="form-group text-center mt-3">
+                                    <div class="alert <?= $error ? 'alert-danger' : 'alert-success' ?>"><?= $message ?></div>
+                                </div>
+                            <?php if ($error === false) : ?>
+                                <script type="application/javascript">
+                                    setTimeout(() => {
+
+                                        // If there's a 'redirectUrl' in the query string, redirect to that URL
+                                        const urlParams = new URLSearchParams(window.location.search);
+                                        const redirectUrl = urlParams.get('redirectUrl');
+
+                                        if (redirectUrl) {
+                                            window.location.href = redirectUrl;
+                                        } else {
+                                            // Otherwise, redirect to the home page
+                                            window.location.href = '/';
+                                        }
+                                    }, 1000);
+                                </script>
+                            <?php endif ?>
+                            <?php endif ?>
                             <div class="form-group text-center">
                                 <button type="submit" class="btn btn-primary btn-block">Regístrate</button>
                             </div>

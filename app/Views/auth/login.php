@@ -6,7 +6,7 @@
                 <div class="col-lg-6">
                     <div class="card shadow-lg p-4">
                         <h2 class="text-center mb-4">Iniciar Sesión</h2>
-                        <form action="/login" method="POST">
+                        <form action="<?= $_SERVER['REQUEST_URI'] ?>" method="POST">
                             <div class="form-group">
                                 <label for="email">Correo Electrónico</label>
                                 <input type="email" id="email" name="email" class="form-control" placeholder="Ingresa tu correo" value="<?= $_POST['email'] ?? '' ?>" required>
@@ -20,7 +20,21 @@
                                     <div class="alert <?= $error ? 'alert-danger' : 'alert-success' ?>"><?= $message ?></div>
                                 </div>
                             <?php if ($error === false) : ?>
-                                <script> setTimeout(() => window.location.href = '/vehicles', 1000);</script>
+                                <script type="application/javascript">
+                                    setTimeout(() => {
+
+                                        // If there's a 'redirectUrl' in the query string, redirect to that URL
+                                        const urlParams = new URLSearchParams(window.location.search);
+                                        const redirectUrl = urlParams.get('redirectUrl');
+
+                                        if (redirectUrl) {
+                                            window.location.href = redirectUrl;
+                                        } else {
+                                            // Otherwise, redirect to the home page
+                                            window.location.href = '/';
+                                        }
+                                    }, 1000);
+                                </script>
                             <?php endif ?>
                             <?php endif ?>
                             <div class="d-flex justify-content-center align-items-center m-3">

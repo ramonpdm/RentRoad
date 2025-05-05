@@ -13,7 +13,7 @@ class AuthController extends BaseController
     public function login(): string
     {
         if (Auth::isLogged())
-            return $this->redirect('/vehicles');
+            return $this->redirect('/');
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $response = [
