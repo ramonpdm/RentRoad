@@ -17,9 +17,9 @@ class Factura
     #[ORM\Column(type: 'integer')]
     public int $id;
 
-    #[ORM\ManyToOne(targetEntity: Reserva::class)]
-    #[ORM\JoinColumn(name: 'reserva_id', referencedColumnName: 'id', nullable: false)]
-    public Reserva $reserva;
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false)]
+    public Renta $reserva;
 
     #[ORM\Column(type: 'datetime', options: ['default' => 'CURRENT_TIMESTAMP'])]
     public \DateTime $fecha_emision;

@@ -2,13 +2,14 @@
 
 namespace App\Entities;
 
+use App\Enums\EstadoRenta;
 use Doctrine\ORM\Mapping as ORM;
 use App\Traits\Entities\Shared;
 
 #[ORM\Entity]
 #[ORM\HasLifecycleCallbacks]
 #[ORM\Table(name: 'reservas')]
-class Reserva
+class Renta
 {
     use Shared;
 
@@ -17,20 +18,24 @@ class Reserva
     #[ORM\Column(type: 'integer')]
     public int $id;
 
-    #[ORM\ManyToOne(targetEntity: Usuario::class)]
-    #[ORM\JoinColumn(name: 'usuario_id', referencedColumnName: 'id', nullable: false)]
-    public Usuario $usuario;
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false)]
+    public Cliente $cliente;
 
-    #[ORM\ManyToOne(targetEntity: Vehiculo::class)]
-    #[ORM\JoinColumn(name: 'vehiculo_id', referencedColumnName: 'id', nullable: false)]
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false)]
     public Vehiculo $vehiculo;
 
-    #[ORM\ManyToOne(targetEntity: Sucursal::class)]
-    #[ORM\JoinColumn(name: 'sucursal_recogida_id', referencedColumnName: 'id', nullable: false)]
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false)]
+    public Tarifa $tarifa;
+
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false)]
     public Sucursal $sucursal_recogida;
 
-    #[ORM\ManyToOne(targetEntity: Sucursal::class)]
-    #[ORM\JoinColumn(name: 'sucursal_devolucion_id', referencedColumnName: 'id', nullable: true)]
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: true)]
     public ?Sucursal $sucursal_devolucion = null;
 
     #[ORM\Column(type: 'datetime', options: ['default' => 'CURRENT_TIMESTAMP'])]
@@ -42,18 +47,29 @@ class Reserva
     #[ORM\Column(type: 'datetime')]
     public \DateTime $fecha_devolucion;
 
-    #[ORM\Column(type: 'string', columnDefinition: "ENUM('Pendiente', 'Confirmada', 'En curso', 'Completada', 'Cancelada')", options: ['default' => 'Pendiente'])]
-    public string $estado = 'Pendiente';
+    #[ORM\Column(enumType: EstadoRenta::class, options: ['default' => EstadoRenta::Pendiente])]
+    public EstadoRenta $estado = EstadoRenta::Pendiente;
 
     #[ORM\Column(type: 'boolean', options: ['default' => false])]
     public bool $seguro = false;
 
-    #[ORM\Column(type: 'decimal', precision: 10, scale: 2, options: ['default' => 0])]
-    public float $costo_seguro = 0;
-
-    #[ORM\Column(type: 'decimal', precision: 10, scale: 2)]
-    public float $costo_total;
-
     #[ORM\Column(type: 'text', nullable: true)]
     public ?string $observaciones = null;
+
+    public function getDiasRenta(): int
+    {
+        $interval = $this->fecha_recogida->diff($this->fecha_devolucion);
+        return (int)$interval->days;
+    }
+
+    public function getCostoTotal(): float
+    {
+        $cost = $this->tarifa->costo_base;
+
+        if ($this->seguro) {
+            $cost += $this->tarifa->costo_seguro;
+        }
+
+        return $cost * $this->getDiasRenta();
+    }
 }
