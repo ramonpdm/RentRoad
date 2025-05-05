@@ -37,12 +37,16 @@
                             <ul class="site-menu main-menu js-clone-nav ml-auto ">
                                 <li class="active"><a href="/" class="nav-link">Inicio</a></li>
                                 <li><a href="/vehicles" class="nav-link">Vehículos</a></li>
-                                <li>
-                                    <a href="/login" class="nav-link active font-weight-bold"><?= Auth::user()?->getNombreCompleto() ?? 'Iniciar Sesión' ?></a>
-                                </li>
                                 <?php if (Auth::isLogged()): ?>
                                     <li>
+                                        <a href="/profile" class="nav-link active font-weight-bold"><?= Auth::user()->getNombreCompleto() ?></a>
+                                    </li>
+                                    <li>
                                         <a href="/logout" class="nav-link font-weight-bold text-danger">Cerrar Sessión</a>
+                                    </li>
+                                <?php else: ?>
+                                    <li>
+                                        <a href="/login" class="nav-link active font-weight-bold">Iniciar Sesión</a>
                                     </li>
                                 <?php endif; ?>
                             </ul>

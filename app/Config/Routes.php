@@ -5,10 +5,11 @@ namespace App\Config;
 use Closure;
 use Steampixel\Route;
 
-use App\Exceptions\HTTP\HttpException;
-
 use App\Controllers\Backend\APIController;
-use App\Controllers\Frontend\{AuthController, BaseController, HomeController};
+use App\Controllers\Frontend\AuthController;
+use App\Controllers\Frontend\BaseController;
+use App\Controllers\Frontend\UsersController;
+use App\Controllers\Frontend\HomeController;
 
 class Routes
 {
@@ -97,6 +98,8 @@ class Routes
         Route::add('/logout', $this->call(AuthController::class, 'logout'));
         Route::add('/login', $this->call(AuthController::class, 'login'), method: 'post');
         Route::add('/register', $this->call(AuthController::class, 'register'));
+
+        Route::add('/profile', $this->call(UsersController::class, 'profile'));
 
         /* ---------------------------------- */
         /* ------ FRONTEND AUTO ROUTES ------ */

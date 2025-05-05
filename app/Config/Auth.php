@@ -29,6 +29,14 @@ class Auth
         return self::user() !== null;
     }
 
+    public static function checkLogin(): void
+    {
+        if (!self::isLogged()) {
+            header('Location: /login');
+            exit();
+        }
+    }
+
     public static function handle($requiredRoles = []): void
     {
         if (!isset($_SESSION['usuario'])) {
