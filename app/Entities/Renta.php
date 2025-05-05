@@ -64,7 +64,6 @@ class Renta
 
     public function getCostoTotal(): float
     {
-        $cost = $this->costo + $this->costo_seguro;
-        return $cost * $this->getDiasRenta();
+        return ($this->costo * $this->getDiasRenta()) + $this->costo_seguro;
     }
 }

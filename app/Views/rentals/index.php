@@ -63,10 +63,9 @@ include APP_VIEWS_DIR . '/inc/header.php';
                                 <th>Vehículo</th>
                                 <th>Recogida</th>
                                 <th>Reserva</th>
-                                <th>Estado</th>
                                 <th>Seguro</th>
                                 <th>Total</th>
-                                <th>Observaciones</th>
+                                <th>Estado</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -83,12 +82,10 @@ include APP_VIEWS_DIR . '/inc/header.php';
                                     <td><?= $renta->sucursal_recogida->nombre ?></td>
                                     <td>
                                         <?= $renta->fecha_reserva->format('d/m/Y') ?>
-                                        (<?= $renta->getDiasRenta() ?> días)
                                     </td>
+                                    <td><?= $renta->costo_seguro ? 'US$' . number_format($renta->costo_seguro, 2) : 'No' ?></td>
+                                    <td>US$<?= number_format($renta->getCostoTotal(), 2) ?> x <?= $renta->getDiasRenta() ?> días</td>
                                     <td><?= $renta->estado->value ?></td>
-                                    <td><?= $renta->seguro ? '$' . number_format($renta->costo_seguro, 2) : 'No' ?></td>
-                                    <td>$<?= number_format($renta->getCostoTotal(), 2) ?></td>
-                                    <td><?= $renta->observaciones ?? 'Ninguna' ?></td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
