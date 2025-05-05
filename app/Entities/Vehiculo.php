@@ -59,9 +59,6 @@ class Vehiculo
     #[ORM\Column(type: 'string', options: ['default' => 'Disponible'], columnDefinition: "ENUM('Disponible', 'Alquilado', 'Mantenimiento', 'Fuera de servicio')")]
     public string $estado = 'Disponible';
 
-    #[ORM\Column(type: 'decimal', precision: 10, scale: 2)]
-    public float $tarifa_diaria;
-
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     public ?string $imagen_url = null;
 }

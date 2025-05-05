@@ -12,6 +12,21 @@ class VehiculoSeeder extends BaseSeeder
         $categoriesRepo = $this->entityManager->getRepository(CategoriaVehiculo::class);
         return [
             new Vehiculo([
+                'marca' => 'Mazda',
+                'modelo' => 'CX-5',
+                'ano' => 2025,
+                'placa' => 'G12345',
+                'color' => 'Negro',
+                'kilometraje' => 100,
+                'transmision' => 'Automático',
+                'capacidad_pasajeros' => 4,
+                'capacidad_maletero' => 400,
+                'combustible' => 'Gasolina',
+                'estado' => 'Disponible',
+                'categoria' => $categoriesRepo->find(1),
+                'imagen_url' => '/public/images/mazda_cx5.jpg'
+            ]),
+            new Vehiculo([
                 'marca' => 'Toyota',
                 'modelo' => 'Corolla',
                 'ano' => 2020,
@@ -23,7 +38,6 @@ class VehiculoSeeder extends BaseSeeder
                 'capacidad_maletero' => 400,
                 'combustible' => 'Gasolina',
                 'estado' => 'Disponible',
-                'tarifa_diaria' => 30.00,
                 'categoria' => $categoriesRepo->find(1),
                 'imagen_url' => '/public/images/car_1.jpg'
             ]),
@@ -39,7 +53,6 @@ class VehiculoSeeder extends BaseSeeder
                 'capacidad_maletero' => 600,
                 'combustible' => 'Gasolina',
                 'estado' => 'Disponible',
-                'tarifa_diaria' => 60.00,
                 'categoria' => $categoriesRepo->find(2),
                 'imagen_url' => '/public/images/car_2.jpg'
             ]),
@@ -55,7 +68,6 @@ class VehiculoSeeder extends BaseSeeder
                 'capacidad_maletero' => 450,
                 'combustible' => 'Gasolina',
                 'estado' => 'Disponible',
-                'tarifa_diaria' => 120.00,
                 'categoria' => $categoriesRepo->find(3),
                 'imagen_url' => '/public/images/car_3.jpg'
             ]),
