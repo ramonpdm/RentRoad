@@ -15,6 +15,11 @@
         <link rel="stylesheet" href="/public/css/style.css">
         <link rel="stylesheet" href="/public/css/bootstrap.css">
         <link rel="stylesheet" href="/public/css/utils.css">
+
+        <script type="application/javascript">
+            const IS_CUSTOMER = <?= Auth::user()?->isCustomer() ? 'true' : 'false' ?>;
+            const IS_ADMIN = <?= Auth::user()?->isAdmin() ? 'true' : 'false' ?>;
+        </script>
     </head>
 
     <body>
@@ -35,8 +40,9 @@
                                 <li class="active"><a href="/" class="nav-link">Inicio</a></li>
                                 <li><a href="/vehicles" class="nav-link">Vehículos</a></li>
                                 <?php if (Auth::isLogged()): ?>
+                                    <li><a href="/rentals" class="nav-link">Rentas</a></li>
                                     <?php if (Auth::user()->isAdmin()): ?>
-                                        <li><a href="/rentals" class="nav-link">Rentas</a></li>
+                                        <li><a href="/branches" class="nav-link">Sucursales</a></li>
                                     <?php endif; ?>
                                     <li>
                                         <a href="/profile" class="nav-link active font-weight-bold"><?= Auth::user()->getNombreCompleto() ?></a>
@@ -44,7 +50,7 @@
                                     <li>
                                         <a href="/logout" class="nav-link font-weight-bold text-danger">Cerrar Sessión</a>
                                     </li>
-                                    <?php else: ?>
+                                <?php else: ?>
                                     <li>
                                         <a href="/login" class="nav-link active font-weight-bold">Iniciar Sesión</a>
                                     </li>

@@ -40,7 +40,7 @@
                 <div class="input-group mb-3">
                     <input type="search" class="form-control" placeholder="Buscar vehículo..." id="searchVehicleInput">
                     <div class="input-group-append">
-                        <button class="btn btn-secondary" type="button" id="searchVehicleButton">
+                        <button class="btn btn-secondary h-100" type="button" id="searchVehicleButton">
                             <i class="bi bi-search"></i>
                         </button>
                     </div>
@@ -108,16 +108,18 @@
                     <div class="listing-contents h-100">
                         <div class="d-flex justify-content-between">
                             <h3>${vehicle.marca} ${vehicle.modelo}</h3>
-                            <div class="text-nowrap">
-                                <i class="edit pointer bi bi-pencil-square text-primary"></i>
-                                <i class="delete pointer bi bi-trash3 text-danger"></i>
-                            </div>
+                            ${IS_ADMIN ? `
+                                <div class="text-nowrap">
+                                    <i class="edit pointer bi bi-pencil-square text-primary"></i>
+                                    <i class="delete pointer bi bi-trash3 text-danger"></i>
+                                </div>
+                            ` : ''}
                         </div>
                         <div class="rent-price">
                             <strong>US$${vehicle.costo}</strong><span class="mx-1">/</span>day
                         </div>
-                        <div class="d-block d-md-flex mb-3 border-bottom pb-3">
-                            <table class="table table-borderless mb-3">
+                        <div class="d-block d-md-flex">
+                            <table class="table table-borderless m-0">
                                 <tbody>
                                     <tr>
                                         <td>Color</td>
@@ -142,9 +144,10 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div>
-                            <p><a href="/rent?vehicle=${vehicle.id}" class="btn btn-primary btn-sm">Rentar</a></p>
-                        </div>
+                        ${IS_CUSTOMER ? `
+                            <hr>
+                            <a href="/rent?vehicle=${vehicle.id}" class="btn btn-primary w-100">Rentar</a>
+                        ` : ''}
                     </div>
                 </div>
             </form>
