@@ -2,8 +2,10 @@
 
 namespace App\Entities;
 
+use App\Enums\EstadoVehiculo;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Enums\Combustible;
 use App\Repositories\VehiclesRepo;
 use App\Traits\Entities\Shared;
 
@@ -58,11 +60,11 @@ class Vehiculo
     #[ORM\Column(type: 'integer', nullable: true)]
     public ?int $capacidad_maletero = null;
 
-    #[ORM\Column(type: 'string', columnDefinition: "ENUM('Gasolina', 'Diesel', 'Híbrido', 'Eléctrico')")]
-    public string $combustible;
+    #[ORM\Column(enumType: Combustible::class, options: ['default' => Combustible::Gasolina])]
+    public Combustible $combustible;
 
-    #[ORM\Column(type: 'string', options: ['default' => 'Disponible'], columnDefinition: "ENUM('Disponible', 'Alquilado', 'Mantenimiento', 'Fuera de servicio')")]
-    public string $estado = 'Disponible';
+    #[ORM\Column(enumType: EstadoVehiculo::class, options: ['default' => EstadoVehiculo::Disponible])]
+    public EstadoVehiculo $estado = EstadoVehiculo::Disponible;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     public ?string $imagen_url = null;

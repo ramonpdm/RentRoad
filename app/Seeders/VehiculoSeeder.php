@@ -5,6 +5,8 @@ namespace App\Seeders;
 use App\Entities\CategoriaVehiculo;
 use App\Entities\Sucursal;
 use App\Entities\Vehiculo;
+use App\Enums\Combustible;
+use App\Enums\EstadoVehiculo;
 
 class VehiculoSeeder extends BaseSeeder
 {
@@ -23,8 +25,8 @@ class VehiculoSeeder extends BaseSeeder
                 'transmision' => 'Automático',
                 'capacidad_pasajeros' => 4,
                 'capacidad_maletero' => 400,
-                'combustible' => 'Gasolina',
-                'estado' => 'Disponible',
+                'combustible' => Combustible::Gasolina,
+                'estado' => EstadoVehiculo::Disponible,
                 'categoria' => $categoriesRepo->find(1),
                 'imagen_url' => '/public/images/mazda_cx5.jpg'
             ]),
@@ -39,8 +41,8 @@ class VehiculoSeeder extends BaseSeeder
                 'transmision' => 'Automático',
                 'capacidad_pasajeros' => 5,
                 'capacidad_maletero' => 400,
-                'combustible' => 'Gasolina',
-                'estado' => 'Disponible',
+                'combustible' => Combustible::Gasolina,
+                'estado' => EstadoVehiculo::Disponible,
                 'categoria' => $categoriesRepo->find(1),
                 'imagen_url' => '/public/images/car_1.jpg'
             ]),
@@ -55,8 +57,8 @@ class VehiculoSeeder extends BaseSeeder
                 'transmision' => 'Automático',
                 'capacidad_pasajeros' => 7,
                 'capacidad_maletero' => 600,
-                'combustible' => 'Gasolina',
-                'estado' => 'Disponible',
+                'combustible' => Combustible::Gasolina,
+                'estado' => EstadoVehiculo::Disponible,
                 'categoria' => $categoriesRepo->find(2),
                 'imagen_url' => '/public/images/car_2.jpg'
             ]),
@@ -71,8 +73,8 @@ class VehiculoSeeder extends BaseSeeder
                 'transmision' => 'Automático',
                 'capacidad_pasajeros' => 5,
                 'capacidad_maletero' => 450,
-                'combustible' => 'Gasolina',
-                'estado' => 'Disponible',
+                'combustible' => Combustible::Gasolina,
+                'estado' => EstadoVehiculo::Disponible,
                 'categoria' => $categoriesRepo->find(3),
                 'imagen_url' => '/public/images/car_3.jpg'
             ]),
