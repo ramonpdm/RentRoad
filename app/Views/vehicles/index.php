@@ -1,4 +1,6 @@
-<?php include APP_VIEWS_DIR . '/inc/header.php'; ?>
+<?php use App\Config\Auth;
+
+include APP_VIEWS_DIR . '/inc/header.php'; ?>
 <?php include 'modals/create.php'; ?>
 <div class="hero inner-page" style="background-image: url('/public/images/hero_1_a.jpg');">
     <div class="container">
@@ -26,9 +28,11 @@
                     <div>
                         <h2 class="h3 mb-3 text-black">Vehículos</h2>
                     </div>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createVehicleModal">
-                        Crear Vehículo
-                    </button>
+                    <?php if (Auth::user()?->isAdmin()): ?>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createVehicleModal">
+                            Crear Vehículo
+                        </button>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
@@ -107,7 +111,7 @@
                     </div>
                     <div class="listing-contents h-100">
                         <div class="d-flex justify-content-between">
-                            <h3>${vehicle.marca} ${vehicle.modelo}</h3>
+                            <h3>${vehicle.marca} ${vehicle.modelo} ${vehicle.ano}</h3>
                             ${IS_ADMIN ? `
                                 <div class="text-nowrap">
                                     <i class="edit pointer bi bi-pencil-square text-primary"></i>
@@ -144,7 +148,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        ${IS_CUSTOMER ? `
+                        ${IS_ADMIN === false ? `
                             <hr>
                             <a href="/rent?vehicle=${vehicle.id}" class="btn btn-primary w-100">Rentar</a>
                         ` : ''}
