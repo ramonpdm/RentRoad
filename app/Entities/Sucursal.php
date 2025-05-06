@@ -14,25 +14,25 @@ class Sucursal
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column]
     public int $id;
 
-    #[ORM\Column(type: 'string', length: 100)]
+    #[ORM\Column(length: 100)]
     public string $nombre;
 
     #[ORM\Column(type: 'text')]
     public string $direccion;
 
-    #[ORM\Column(type: 'string', length: 50)]
+    #[ORM\Column(length: 50)]
     public string $ciudad;
 
-    #[ORM\Column(type: 'string', length: 20)]
+    #[ORM\Column(length: 20)]
     public string $telefono;
 
-    #[ORM\Column(type: 'string', length: 100, nullable: true)]
+    #[ORM\Column(length: 100, nullable: true)]
     public ?string $email = null;
 
-    #[ORM\Column(type: 'string', length: 100, nullable: true)]
+    #[ORM\Column(length: 100, nullable: true)]
     public ?string $aeropuerto_asociado = null;
 
     #[ORM\Column(type: 'time', nullable: true)]

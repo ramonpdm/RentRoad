@@ -14,7 +14,7 @@ class Rol
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column]
     public int $id;
 
     #[ORM\Column(type: 'string', length: 50, unique: true)]

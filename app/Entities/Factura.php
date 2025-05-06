@@ -14,7 +14,7 @@ class Factura
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column]
     public int $id;
 
     #[ORM\ManyToOne]

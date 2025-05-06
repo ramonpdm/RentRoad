@@ -13,7 +13,7 @@ abstract class Persona
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column]
     public int $id;
 
     #[ORM\Column(length: 100)]

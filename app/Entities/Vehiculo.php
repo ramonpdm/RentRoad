@@ -17,19 +17,19 @@ class Vehiculo
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column]
     public int $id;
 
-    #[ORM\Column(type: 'string', length: 50)]
+    #[ORM\Column(length: 50)]
     public string $marca;
 
-    #[ORM\Column(type: 'string', length: 50)]
+    #[ORM\Column(length: 50)]
     public string $modelo;
 
     #[ORM\Column(type: 'integer')]
     public int $ano;
 
-    #[ORM\Column(type: 'string', length: 20, unique: true)]
+    #[ORM\Column(length: 20, unique: true)]
     public string $placa;
 
     #[ORM\ManyToOne]
@@ -40,13 +40,13 @@ class Vehiculo
     #[ORM\JoinColumn(nullable: false)]
     public Sucursal $sucursal;
 
-    #[ORM\Column(type: 'string', length: 30, nullable: true)]
+    #[ORM\Column(length: 30, nullable: true)]
     public ?string $color = null;
 
     #[ORM\Column(type: 'integer', nullable: true)]
     public ?int $kilometraje = null;
 
-    #[ORM\Column(type: 'string', columnDefinition: "ENUM('Automático', 'Manual')")]
+    #[ORM\Column(columnDefinition: "ENUM('Automático', 'Manual')")]
     public string $transmision;
 
     #[ORM\Column(type: 'integer')]
@@ -67,7 +67,7 @@ class Vehiculo
     #[ORM\Column(enumType: EstadoVehiculo::class, options: ['default' => EstadoVehiculo::Disponible])]
     public EstadoVehiculo $estado = EstadoVehiculo::Disponible;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[ORM\Column(length: 255, nullable: true)]
     public ?string $imagen_url = null;
 
     public function getNombre(): string

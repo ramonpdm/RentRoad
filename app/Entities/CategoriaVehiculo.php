@@ -14,10 +14,10 @@ class CategoriaVehiculo
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column]
     public int $id;
 
-    #[ORM\Column(type: 'string', length: 50)]
+    #[ORM\Column(length: 50)]
     public string $nombre;
 
     #[ORM\Column(type: 'text', nullable: true)]
