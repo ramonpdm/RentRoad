@@ -2,6 +2,7 @@
 
 namespace App\Entities;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use App\Traits\Entities\Shared;
 
@@ -15,23 +16,23 @@ abstract class Persona
     #[ORM\Column(type: 'integer')]
     public int $id;
 
-    #[ORM\Column(type: 'string', length: 100)]
+    #[ORM\Column(length: 100)]
     public string $nombre;
 
-    #[ORM\Column(type: 'string', length: 100)]
+    #[ORM\Column(length: 100)]
     public string $apellido;
 
-    #[ORM\Column(type: 'string', length: 100, unique: true)]
+    #[ORM\Column(length: 100, unique: true)]
     public string $email;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(length: 255)]
     public string $password;
 
-    #[ORM\Column(type: 'string', length: 20, nullable: true)]
+    #[ORM\Column(length: 20, nullable: true)]
     public ?string $telefono = null;
 
-    #[ORM\Column(type: 'date', nullable: true)]
-    public ?\DateTime $fecha_nacimiento = null;
+    #[ORM\Column]
+    public DateTime $fecha_nacimiento;
 
     public function getNombreCompleto(): string
     {

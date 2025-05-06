@@ -42,6 +42,7 @@
                                 <?php if (Auth::isLogged()): ?>
                                     <li><a href="/rentals" class="nav-link">Rentas</a></li>
                                     <?php if (Auth::user()->isAdmin()): ?>
+                                        <li><a href="/customers" class="nav-link">Clientes</a></li>
                                         <li><a href="/branches" class="nav-link">Sucursales</a></li>
                                     <?php endif; ?>
                                     <li>

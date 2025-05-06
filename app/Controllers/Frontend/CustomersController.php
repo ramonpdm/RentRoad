@@ -7,6 +7,22 @@ use App\Entities\Cliente;
 
 class CustomersController extends BaseController
 {
+    protected ?string $entity = Cliente::class;
+
+    public function index(): string
+    {
+        if (Auth::isLogged() === false)
+            return $this->renderView(404);
+
+        return $this->renderView(
+            'people/index',
+            [
+                'title' => 'Clientes',
+                'users' => $this->getRepo()->findAll(),
+            ]
+        );
+    }
+
     public function view($id): string
     {
         Auth::checkLogin();
@@ -18,7 +34,7 @@ class CustomersController extends BaseController
         )
             return $this->renderView(404);
 
-        $repo = $this->getRepo(Cliente::class);
+        $repo = $this->getRepo();
         $customer = $repo->find($id);
 
         return $this->renderView(

@@ -12,6 +12,6 @@ class Cliente extends Persona
     #[ORM\Column(type: 'text', nullable: true)]
     public ?string $direccion = null;
 
-    #[ORM\Column(type: 'string', length: 50, unique: true, nullable: true)]
-    public ?string $licencia_conducir = null;
+    #[ORM\Column(length: 50, unique: true)]
+    public string $licencia_conducir;
 }
