@@ -35,7 +35,9 @@ use App\Entities\Usuario;
         <div class="row">
             <div class="col-md-12">
                 <h2>Información del Perfil</h2>
-                <form method="post" action="/update-profile">
+                <form id="profile-form" method="POST">
+                    <input type="hidden" name="id" value="<?= $user->id ?>">
+                    <input type="hidden" name="tipo" value="<?= $user->isCustomer() ? 'cliente' : 'empleado' ?>">
                     <div class="row mb-3">
                         <div class="form-group col-md-6">
                             <label for="nombre"><strong>Nombre:</strong></label>
@@ -92,5 +94,29 @@ use App\Entities\Usuario;
         </div>
     </div>
 </div>
+
+<script type="application/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.getElementById('profile-form');
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const formData = new FormData(form);
+            const url = `/api/v1/people/<?= $user->id ?>`;
+
+            fetch(url, {method: 'PUT', body: formData})
+                .then(response => {
+                    if (response.ok) {
+                        alert('Perfil actualizado con éxito.');
+                    } else {
+                        alert('Error al actualizar el perfil: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        });
+    });
+</script>
 
 <?php include APP_VIEWS_DIR . '/inc/footer.php'; ?>
