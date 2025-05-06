@@ -3,21 +3,21 @@
 namespace App\Controllers\Frontend;
 
 use App\Entities\CategoriaVehiculo;
-use App\Repositories\VehiclesRepo;
+use App\Entities\Sucursal;
 
 class VehiclesController extends BaseController
 {
     public function index(): string
     {
-        /** @var VehiclesRepo $repo */
-        $repo = $this->getRepo(CategoriaVehiculo::class);
-        $categories = $repo->findAll();
+        $categories = $this->getRepo(CategoriaVehiculo::class)->findAll();
+        $branches = $this->getRepo(Sucursal::class)->findAll();
 
         return $this->renderView(
             'vehicles/index',
             [
                 'title' => 'Vehículos',
-                'categories' => $categories
+                'categories' => $categories,
+                'branches' => $branches
             ]
         );
     }

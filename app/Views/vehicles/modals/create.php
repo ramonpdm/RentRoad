@@ -1,20 +1,20 @@
 <?php
 
 use App\Entities\CategoriaVehiculo;
+use App\Entities\Sucursal;
 
-/** @var CategoriaVehiculo[] $categories */ ?>
+/** @var CategoriaVehiculo[] $categories */
+/** @var Sucursal[] $branches */ ?>
 <div class="modal fade" id="createVehicleModal" tabindex="-1" role="dialog" aria-labelledby="createVehicleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="createVehicleModalLabel">Crear Nuevo Vehículo</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form id="createVehicleForm">
-                    <div class="form-row">
+                    <div class="row">
                         <div class="form-group col-md-6">
                             <label for="marca">Marca</label>
                             <input type="text" class="form-control" id="marca" name="marca" required>
@@ -24,7 +24,7 @@ use App\Entities\CategoriaVehiculo;
                             <input type="text" class="form-control" id="modelo" name="modelo" required>
                         </div>
                     </div>
-                    <div class="form-row">
+                    <div class="row">
                         <div class="form-group col-md-6">
                             <label for="año">Año</label>
                             <input type="number" class="form-control" id="año" name="año" required>
@@ -34,10 +34,10 @@ use App\Entities\CategoriaVehiculo;
                             <input type="text" class="form-control" id="placa" name="placa" required>
                         </div>
                     </div>
-                    <div class="form-row">
+                    <div class="row">
                         <div class="form-group col-md-6">
                             <label for="categoria">Categoría</label>
-                            <select class="form-control" id="categoria" name="categoria" required>
+                            <select class="form-control" id="categoria" name="categoria_id" required>
                                 <?php foreach ($categories as $category): ?>
                                     <option value="<?= $category->id ?>"><?= $category->nombre ?></option>
                                 <?php endforeach; ?>
@@ -48,7 +48,7 @@ use App\Entities\CategoriaVehiculo;
                             <input type="text" class="form-control" id="color" name="color">
                         </div>
                     </div>
-                    <div class="form-row">
+                    <div class="row">
                         <div class="form-group col-md-6">
                             <label for="kilometraje">Kilometraje</label>
                             <input type="number" class="form-control" id="kilometraje" name="kilometraje">
@@ -56,12 +56,13 @@ use App\Entities\CategoriaVehiculo;
                         <div class="form-group col-md-6">
                             <label for="transmision">Transmisión</label>
                             <select class="form-control" id="transmision" name="transmision" required>
-                                <option value="Automático">Automático</option>
-                                <option value="Manual">Manual</option>
+                                <?php foreach (\App\Enums\Transmision::cases() as $transmision): ?>
+                                    <option value="<?= $transmision->value ?>"><?= $transmision->name ?></option>
+                                <?php endforeach; ?>
                             </select>
                         </div>
                     </div>
-                    <div class="form-row">
+                    <div class="row">
                         <div class="form-group col-md-6">
                             <label for="capacidad_pasajeros">Capacidad de Pasajeros</label>
                             <input type="number" class="form-control" id="capacidad_pasajeros" name="capacidad_pasajeros" required>
@@ -71,44 +72,32 @@ use App\Entities\CategoriaVehiculo;
                             <input type="number" class="form-control" id="capacidad_maletero" name="capacidad_maletero">
                         </div>
                     </div>
-                    <div class="form-row">
+                    <div class="row">
                         <div class="form-group col-md-6">
                             <label for="combustible">Combustible</label>
                             <select class="form-control" id="combustible" name="combustible" required>
-                                <option value="Gasolina">Gasolina</option>
-                                <option value="Diesel">Diesel</option>
-                                <option value="Híbrido">Híbrido</option>
-                                <option value="Eléctrico">Eléctrico</option>
+                                <?php foreach (\App\Enums\Combustible::cases() as $combustible): ?>
+                                    <option value="<?= $combustible->value ?>"><?= $combustible->name ?></option>
+                                <?php endforeach; ?>
                             </select>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="sucursal">Sucursal</label>
-                            <select class="form-control" id="sucursal" name="sucursal">
-                                <!-- Opciones dinámicas -->
+                            <select class="form-control" id="sucursal" name="sucursal_id">
+                                <?php foreach ($branches as $branch): ?>
+                                    <option value="<?= $branch->id ?>"><?= $branch->nombre ?></option>
+                                <?php endforeach; ?>
                             </select>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="estado">Estado</label>
-                            <select class="form-control" id="estado" name="estado" required>
-                                <option value="Disponible">Disponible</option>
-                                <option value="Alquilado">Alquilado</option>
-                                <option value="Mantenimiento">Mantenimiento</option>
-                                <option value="Fuera de servicio">Fuera de servicio</option>
-                            </select>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="tarifa_diaria">Tarifa Diaria</label>
-                            <input type="number" step="0.01" class="form-control" id="tarifa_diaria" name="tarifa_diaria" required>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="imagen_url">URL de la Imagen</label>
                         <input type="text" class="form-control" id="imagen_url" name="imagen_url">
                     </div>
-                    <button type="submit" class="btn btn-primary">Guardar</button>
                 </form>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary w-100" form="createVehicleForm">Guardar</button>
             </div>
         </div>
     </div>

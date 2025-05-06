@@ -3,7 +3,10 @@
 namespace App\Controllers\Backend;
 
 use App\Entities\CategoriaVehiculo;
+use App\Entities\Sucursal;
 use App\Entities\Vehiculo;
+use App\Enums\Combustible;
+use App\Enums\Transmision;
 use App\Repositories\VehiclesRepo;
 
 class VehiclesController extends APIController
@@ -31,24 +34,26 @@ class VehiclesController extends APIController
         $request = $_POST;
 
         $categoriesRepo = $this->getRepo(CategoriaVehiculo::class);
-        $categoria = $categoriesRepo->find($request['categoria']);
+        $categoria = $categoriesRepo->find($request['categoria_id']);
         $categoria instanceof CategoriaVehiculo or throw new \HttpException(404, 'Categoria no encontrada');
+
+        $branchesRepo = $this->getRepo(Sucursal::class);
+        $sucursal = $branchesRepo->find($request['sucursal_id']);
+        $sucursal instanceof Sucursal or throw new \HttpException(404, 'Sucursal no encontrada');
 
         $vehicle = new Vehiculo();
         $vehicle->categoria = $categoria;
-
         $vehicle->marca = $request['marca'];
         $vehicle->modelo = $request['modelo'];
         $vehicle->ano = $request['año'];
         $vehicle->placa = $request['placa'];
         $vehicle->color = $request['color'];
         $vehicle->kilometraje = $request['kilometraje'];
-        $vehicle->transmision = $request['transmision'];
         $vehicle->capacidad_pasajeros = $request['capacidad_pasajeros'];
         $vehicle->capacidad_maletero = $request['capacidad_maletero'];
-        $vehicle->combustible = $request['combustible'];
-        $vehicle->sucursal = $request['sucursal'];
-        $vehicle->estado = $request['estado'];
+        $vehicle->transmision = Transmision::tryFrom($request['transmision']);
+        $vehicle->combustible = Combustible::tryFrom($request['combustible']);
+        $vehicle->sucursal = $sucursal;
         $vehicle->imagen_url = $request['imagen_url'];
 
         // Save the vehicle to the database

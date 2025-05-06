@@ -3,6 +3,7 @@
 namespace App\Entities;
 
 use App\Enums\EstadoVehiculo;
+use App\Enums\Transmision;
 use Doctrine\ORM\Mapping as ORM;
 use App\Enums\Combustible;
 use App\Repositories\VehiclesRepo;
@@ -46,9 +47,6 @@ class Vehiculo
     #[ORM\Column(type: 'integer', nullable: true)]
     public ?int $kilometraje = null;
 
-    #[ORM\Column(columnDefinition: "ENUM('Automático', 'Manual')")]
-    public string $transmision;
-
     #[ORM\Column(type: 'integer')]
     public int $capacidad_pasajeros;
 
@@ -61,8 +59,11 @@ class Vehiculo
     #[ORM\Column(nullable: true, options: ['default' => null])]
     public ?float $costo_seguro = null;
 
+    #[ORM\Column(enumType: Transmision::class, options: ['default' => Transmision::Automatica])]
+    public Transmision $transmision = Transmision::Automatica;
+
     #[ORM\Column(enumType: Combustible::class, options: ['default' => Combustible::Gasolina])]
-    public Combustible $combustible;
+    public Combustible $combustible = Combustible::Gasolina;
 
     #[ORM\Column(enumType: EstadoVehiculo::class, options: ['default' => EstadoVehiculo::Disponible])]
     public EstadoVehiculo $estado = EstadoVehiculo::Disponible;

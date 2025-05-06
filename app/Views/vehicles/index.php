@@ -1,7 +1,11 @@
 <?php use App\Config\Auth;
 
 include APP_VIEWS_DIR . '/inc/header.php'; ?>
-<?php include 'modals/create.php'; ?>
+
+<?php if (Auth::user()?->isAdmin()): ?>
+    <?php include 'modals/create.php'; ?>
+<?php endif; ?>
+
 <div class="hero inner-page" style="background-image: url('/public/images/hero_1_a.jpg');">
     <div class="container">
         <div class="row align-items-end ">
@@ -29,7 +33,7 @@ include APP_VIEWS_DIR . '/inc/header.php'; ?>
                         <h2 class="h3 mb-3 text-black">Vehículos</h2>
                     </div>
                     <?php if (Auth::user()?->isAdmin()): ?>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createVehicleModal">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createVehicleModal">
                             Crear Vehículo
                         </button>
                     <?php endif; ?>
