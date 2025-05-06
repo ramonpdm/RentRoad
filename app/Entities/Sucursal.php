@@ -2,6 +2,7 @@
 
 namespace App\Entities;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use App\Traits\Entities\Shared;
 
@@ -35,9 +36,9 @@ class Sucursal
     #[ORM\Column(length: 100, nullable: true)]
     public ?string $aeropuerto_asociado = null;
 
-    #[ORM\Column(type: 'time', nullable: true)]
-    public ?\DateTime $horario_apertura = null;
+    #[ORM\Column(type: 'time')]
+    public DateTime $horario_apertura;
 
-    #[ORM\Column(type: 'time', nullable: true)]
-    public ?\DateTime $horario_cierre = null;
+    #[ORM\Column(type: 'time')]
+    public DateTime $horario_cierre;
 }
