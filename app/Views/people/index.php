@@ -60,9 +60,8 @@ include APP_VIEWS_DIR . '/inc/header.php';
                                         <?php endif; ?>
                                     </td>
                                     <td>
-                                        <div class="d-flex justify-content-end">
-                                            <i class="bi bi-trash text-danger pointer delete-btn"></i>
-                                        </div>
+                                        <i class="bi bi-trash text-danger pointer delete-btn" data-id="<?= $user->id ?>"
+                                           data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar"></i>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
@@ -73,5 +72,32 @@ include APP_VIEWS_DIR . '/inc/header.php';
         </div>
     </div>
 </div>
+
+<script type="application/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+        const deleteButtons = document.querySelectorAll('.delete-btn');
+
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const userId = this.getAttribute('data-id');
+                if (confirm('¿Estás seguro de que deseas eliminar este cliente?')) {
+                    fetch(`/api/v1/customers/${userId}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    })
+                        .then(response => {
+                            if (response.ok) {
+                                location.reload();
+                            } else {
+                                alert('Error al eliminar el cliente');
+                            }
+                        });
+                }
+            });
+        });
+    });
+</script>
 
 <?php include APP_VIEWS_DIR . '/inc/footer.php'; ?>
