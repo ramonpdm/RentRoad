@@ -17,11 +17,12 @@ class RentalsController extends BaseController
     {
         Auth::checkLogin();
 
-        if (Auth::user()->isAdmin() === false)
-            return $this->renderView(404);
-
         $repo = $this->getRepo();
-        $rentals = $repo->findAll();
+
+        if (Auth::user()->isAdmin())
+            $rentals = $repo->findAll();
+        else
+            $rentals = $repo->findBy(['cliente' => Auth::user()]);
 
         return $this->renderView(
             'rentals/index',
