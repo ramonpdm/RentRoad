@@ -92,7 +92,6 @@ class Routes
         /* ---- FRONTEND SPECIFIC ROUTES ---- */
         /* ---------------------------------- */
         Route::add('/', $this->call(HomeController::class));
-        Route::add('/confirmation', $this->call(HomeController::class, 'confirmation'));
 
         Route::add('/login', $this->call(AuthController::class, 'login'));
         Route::add('/logout', $this->call(AuthController::class, 'logout'));
@@ -102,6 +101,7 @@ class Routes
         Route::add('/profile', $this->call(UsersController::class, 'profile'));
 
         Route::add('/rent', $this->call(RentalsController::class, 'rent'));
+        Route::add('/rentals/confirmation', $this->call(RentalsController::class, 'confirmation'), method: 'post');
 
         /* ---------------------------------- */
         /* ------ FRONTEND AUTO ROUTES ------ */

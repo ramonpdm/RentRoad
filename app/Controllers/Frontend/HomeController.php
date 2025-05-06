@@ -8,9 +8,4 @@ class HomeController extends BaseController
     {
         return $this->renderView('home/index');
     }
-
-    public function confirmation(): string
-    {
-        return $this->renderView('home/confirmation');
-    }
 }

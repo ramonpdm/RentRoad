@@ -65,15 +65,16 @@ include APP_VIEWS_DIR . '/inc/header.php';
             <div class="col">
                 <h2>Detalles de la Renta</h2>
                 <p>Gracias por elegir RentRoad. Por favor, complete el formulario para continuar con la renta del vehículo.</p>
-                <form method="post" action="/confirmation">
+                <form method="post" action="/rentals/confirmation">
+                    <input type="hidden" name="vehicle_id" value="<?= $vehicle->id ?>">
                     <div class="row mb-3">
                         <div class="col">
                             <label for="tarifa">Tarifa</label>
-                            <input id="tarifa" name="tarifa" class="form-control" value="US$<?= number_format($vehicle->getCosto(), 2) ?>/día" required disabled>
+                            <input id="tarifa" class="form-control" value="US$<?= number_format($vehicle->getCosto(), 2) ?>/día" disabled>
                         </div>
                         <div class="col">
                             <label for="seguro">Seguro</label>
-                            <input id="seguro" name="seguro" class="form-control" value="US$<?= number_format($vehicle->getCostoSeguro(), 2) ?>" required disabled>
+                            <input id="seguro" class="form-control" value="US$<?= number_format($vehicle->getCostoSeguro(), 2) ?>" disabled>
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -106,6 +107,7 @@ include APP_VIEWS_DIR . '/inc/header.php';
                             </select>
                         </div>
                     </div>
+                    <hr>
                     <button type="submit" class="btn btn-primary w-100">Confirmar Renta</button>
                 </form>
             </div>
