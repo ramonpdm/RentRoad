@@ -44,8 +44,8 @@ class Renta
     #[ORM\Column(type: 'datetime')]
     public DateTime $fecha_devolucion;
 
-    #[ORM\Column(enumType: EstadoRenta::class, options: ['default' => EstadoRenta::Pendiente])]
-    public EstadoRenta $estado = EstadoRenta::Pendiente;
+    #[ORM\Column(enumType: EstadoRenta::class, options: ['default' => EstadoRenta::PendientePago])]
+    public EstadoRenta $estado = EstadoRenta::PendientePago;
 
     #[ORM\Column]
     public float $costo;

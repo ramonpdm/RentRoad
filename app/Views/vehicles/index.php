@@ -245,7 +245,7 @@ include APP_VIEWS_DIR . '/inc/header.php'; ?>
         });
 
         const createVehicleForm = document.getElementById('createVehicleForm');
-        createVehicleForm.addEventListener('submit', async (event) => {
+        createVehicleForm?.addEventListener('submit', async (event) => {
             event.preventDefault();
             const formData = new FormData(createVehicleForm);
             await createVehicle(formData);
