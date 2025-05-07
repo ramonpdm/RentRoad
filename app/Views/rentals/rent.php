@@ -43,7 +43,7 @@ include APP_VIEWS_DIR . '/inc/header.php';
                                 </tr>
                                 <tr>
                                     <td>Transmisión</td>
-                                    <td><?= $vehicle->transmision ?></td>
+                                    <td><?= $vehicle->transmision->name ?></td>
                                 </tr>
                                 <tr>
                                     <td>Combustible</td>

@@ -7,6 +7,7 @@ use App\Entities\Sucursal;
 use App\Entities\Vehiculo;
 use App\Enums\Combustible;
 use App\Enums\EstadoVehiculo;
+use App\Enums\Transmision;
 
 class VehiculoSeeder extends BaseSeeder
 {
@@ -22,7 +23,7 @@ class VehiculoSeeder extends BaseSeeder
                 'placa' => 'G12345',
                 'color' => 'Negro',
                 'kilometraje' => 100,
-                'transmision' => 'Automático',
+                'transmision' => Transmision::Automatica,
                 'capacidad_pasajeros' => 4,
                 'capacidad_maletero' => 400,
                 'combustible' => Combustible::Gasolina,
@@ -38,7 +39,7 @@ class VehiculoSeeder extends BaseSeeder
                 'placa' => 'ABC123',
                 'color' => 'Blanco',
                 'kilometraje' => 15000,
-                'transmision' => 'Automático',
+                'transmision' => Transmision::Automatica,
                 'capacidad_pasajeros' => 5,
                 'capacidad_maletero' => 400,
                 'combustible' => Combustible::Gasolina,
@@ -54,7 +55,7 @@ class VehiculoSeeder extends BaseSeeder
                 'placa' => 'DEF456',
                 'color' => 'Gris',
                 'kilometraje' => 10000,
-                'transmision' => 'Automático',
+                'transmision' => Transmision::Automatica,
                 'capacidad_pasajeros' => 7,
                 'capacidad_maletero' => 600,
                 'combustible' => Combustible::Gasolina,
@@ -70,7 +71,7 @@ class VehiculoSeeder extends BaseSeeder
                 'placa' => 'GHI789',
                 'color' => 'Blanco',
                 'kilometraje' => 5000,
-                'transmision' => 'Automático',
+                'transmision' => Transmision::Automatica,
                 'capacidad_pasajeros' => 5,
                 'capacidad_maletero' => 450,
                 'combustible' => Combustible::Gasolina,
