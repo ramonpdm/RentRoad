@@ -1,4 +1,4 @@
-#Registro de Cambios - RentCar
+#Registro de Cambios - RentRoad
 
 ## [v1.0.3] - 2025-03-18
 ### Añadido
