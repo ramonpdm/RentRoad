@@ -14,4 +14,7 @@ class Cliente extends Persona
 
     #[ORM\Column(length: 50, unique: true)]
     public string $licencia_conducir;
+
+    #[ORM\Column(type: 'date')]
+    public \DateTime $fecha_vencimiento_licencia;
 }
