@@ -83,7 +83,7 @@ class RentalsController extends BaseController
     $returnBranch instanceof Sucursal or throw new \Exception('Sucursal de devolución no encontrada');
 
     // --- VALIDACIÓN DE LICENCIA CHG-007 ---
-    if (!$customer->fecha_vencimiento_licencia || $customer->fecha_vencimiento_licencia < new \DateTime()) {
+    if ($customer->licenciaValida() === false) {
         return $this->renderView('rentals/rent', [
             'title' => 'Rentar ' . $vehicle->getNombre(),
             'vehicle' => $vehicle,
