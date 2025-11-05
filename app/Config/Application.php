@@ -93,4 +93,9 @@ class Application
     {
         return $_ENV['ENVIRONMENT'] === 'development';
     }
+
+    public static function isTesting(): bool
+    {
+        return $_ENV['ENVIRONMENT'] === 'testing';
+    }
 }
