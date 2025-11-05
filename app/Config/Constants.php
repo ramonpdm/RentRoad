@@ -8,6 +8,11 @@ const APP_NAME = 'RentRoad';
 const APP_VIEWS_DIR = APP_DIR . '/Views';
 
 /**
+ * Time Constants
+ */
+const APP_TIMEZONE = 'America/Santo_Domingo';
+
+/**
  * Database Credentials
  */
 define('DB_HOST', $_ENV['DB_HOST'] ?? '');

@@ -7,6 +7,7 @@ use Doctrine\ORM\Tools\Console\EntityManagerProvider\SingleManagerProvider;
 use Dotenv\Dotenv;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use App\Config\ORM;
 
@@ -53,6 +54,39 @@ $app
         $txt = '';
         exec('php cli orm:schema-tool:update -f', $txt);
         exec('find /tmp -name "*.php*" -type f -delete', $txt);
+        $output->writeln($txt);
+    });
+
+$app
+    ->register('app:test')
+    ->addOption('filter', 'f', InputOption::VALUE_OPTIONAL, 'Filter by test class or method name')
+    ->setDescription('Run PHPUnit tests')
+    ->setCode(function (InputInterface $input, OutputInterface $output) {
+        $txt = '';
+
+        // Check if current ENVIRONMENT is "testing",
+        // otherwise, change it to "testing" temporarily
+        if (!\App\Config\Application::isTesting()) {
+            $env = file_get_contents('.env');
+            $currentEnvironment = null;
+            preg_match('/^ENVIRONMENT=(.*)$/m', $env, $currentEnvironment);
+            $env = preg_replace('/^ENVIRONMENT=.*$/m', 'ENVIRONMENT=testing', $env);
+            file_put_contents('.env', $env);
+        }
+
+        $cmd = './vendor/bin/phpunit tests';
+        if ($input->getOption('filter')) {
+            $cmd .= ' --filter ' . $input->getOption('filter');
+        }
+        exec($cmd, $txt);
+
+        // Set back the original environment if it was changed
+        if (isset($currentEnvironment[1])) {
+            $env = file_get_contents('.env');
+            $env = preg_replace('/^ENVIRONMENT=.*$/m', 'ENVIRONMENT=' . $currentEnvironment[1], $env);
+            file_put_contents('.env', $env);
+        }
+
         $output->writeln($txt);
     });
 

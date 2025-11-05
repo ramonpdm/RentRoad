@@ -20,6 +20,6 @@ class Cliente extends Persona
 
     public function licenciaValida(): bool
     {
-        return $this->fecha_vencimiento_licencia >= new \DateTime();
+        return $this->fecha_vencimiento_licencia >= new \DateTime('today');
     }
 }
