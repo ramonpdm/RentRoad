@@ -17,7 +17,7 @@ class Application
         // Bootstrap the static files
         $this->bootstrap();
 
-        session_start();
+        !session_id() && session_start();
         date_default_timezone_set(APP_TIMEZONE);
 
         self::$orm = new ORM();
