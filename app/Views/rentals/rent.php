@@ -108,6 +108,15 @@ include APP_VIEWS_DIR . '/inc/header.php';
                         </div>
                     </div>
                     <hr>
+
+                    <?php if (isset($errors) && is_array($errors)) : ?>
+                        <?php foreach ($errors as $error) : ?>
+                            <div class="form-group text-center mt-3">
+                                <div class="alert alert-danger"><?= $error ?></div>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+
                     <button type="submit" class="btn btn-primary w-100">Confirmar Renta</button>
                 </form>
             </div>

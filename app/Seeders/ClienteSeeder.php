@@ -21,6 +21,7 @@ class ClienteSeeder extends BaseSeeder
                 'fecha_registro' => new DateTime()->format('Y-m-d H:i:s'),
                 'fecha_contratacion' => (new DateTime('2025-01-01')),
                 'licencia_conducir' => '100632126',
+                'fecha_vencimiento_licencia' => new DateTime(),
             ]),
             new Cliente([
                 'nombre' => 'Julio',
