@@ -88,7 +88,7 @@ class RentalsController extends BaseController
             'title' => 'Rentar ' . $vehicle->getNombre(),
             'vehicle' => $vehicle,
             'branches' => [$pickupBranch, $returnBranch],
-            'errors' => ['licencia' => 'El cliente no tiene una licencia válida o está vencida.']
+            'errors' => ['El cliente no tiene una licencia válida o está vencida.']
         ]);
     }
 
